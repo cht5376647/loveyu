@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<meta http-equiv="x-ua-compatible" content="ie=7" />
+<head>
+<meta charset="UTF-8">
+<{header}>
+
+<link id="maxCss" href="images/max.css" rel="stylesheet" type="text/css">
+<link href="images/index.css" rel="stylesheet" type="text/css" />
+</head><body class="max-index-page">
+
+<{require file="block/header_single.html" }>
+<{require file="block/menu.html" }>
+
+<div class="ly-Allwrap clearfix">
+	<div class="n">
+		<div class="ly-flash"><{widgets id="maxFlashx" }></div>
+		<div class="ly-rad"><{widgets id="rad"}></div>
+	</div>
+</div>
+
+<div class="max-index-ad w1200"><{widgets id="indexad"}></div>
+<div class="maxprow w1200"><{widgets id="indexgoods"}></div>
+<div class="max-index-ad max-index-ad2 w1200"><{widgets id="indexad2"}></div>
+<div class="max-index-ad max-index-ad2 w1200"><{widgets id="indexad3"}></div>
+<div class="max-index-article w1200">
+	<div class="w">
+		<div class="item-1"><{widgets id="indexarticle1"}></div>
+		<div class="item-2"><{widgets id="indexarticle2"}></div>
+		<div class="item-3"><{widgets id="indexarticle3"}></div>
+	</div>
+</div>
+
+<script src="images/index.js"></script>
+<{require file="block/footer.html"}> 

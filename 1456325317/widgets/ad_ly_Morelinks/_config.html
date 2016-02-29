@@ -1,0 +1,110 @@
+<div class="tableform" id="textAddress">
+    <div class="division">
+	挂件标题：<input type="text" name="title" value="<{$setting.title}>">(<font color="red">留空不显示</font>)&nbsp;&nbsp;&nbsp;
+	挂件class：<input type="text" name="class" value="<{$setting.class}>">&nbsp;&nbsp;&nbsp;(<font color="red">设计师专用</font>)
+   
+
+    </div>
+    <div class="textcontent" id="ad_ly_morelink">
+        <{foreach from=$setting.text item=data key=key}>
+        <div  class="text_items clearfix division">
+               <div class="th"><input type=hidden name=text[<{$data.id}>][id] value="<{$data.id}>"><{t app="b2c"}>文本:<{/t}></div>
+                <div class="td"><input type="text" name="text[<{$data.id}>][linkinfo]" value="<{$data.linkinfo}>"></div>
+                <div class="th"><{t app="b2c"}>链接:<{/t}></div>
+                <div class="td"><input type="text" name="text[<{$data.id}>][linktarget]" value="<{$data.linktarget}>"></div>
+				<div class="th"><{t app="b2c"}>分隔符:<{/t}></div>
+                <div class="td"><input class="w" type="text" name="text[<{$data.id}>][fenge]" value="<{$data.fenge}>"></div>
+                <div class="td">	
+					<label style="float:left">新窗口：<input type="checkbox"   name="text[<{$data.id}>][tg]" value="1"  <{if $data.tg}>checked<{/if}> /></label>
+					<span class="go-prev">↑</span>
+					<span class="go-next">↓</span>
+					<span onclick="$(this).getParents('.text_items').destroy()" class="delete"></span>
+				</div>
+        </div>
+        <{/foreach}>
+    </div> 
+    <{button label=$___b2c="添加链接"|t:'b2c' class="addimage2" app="desktop" icon="btn_add.gif"}>
+	
+</div>
+<script>
+
+    (function(){              
+//      var options = [];
+//      new Request({
+//          url: '<{link app=starbuy ctl=admin_promotion act=_ajax_group_products}>',
+//          onSuccess: function(rs) {
+//              rs = JSON.decode(rs);
+//              rs.each(function(r){
+//                  options.push('<option value="' + r.url + '">' + r.name + '</option>');
+//              });
+//          }
+//      }).post();
+
+        var tagtxt_type='div',tagtxt_class='text_items clearfix division';
+
+        document.getElement(".addimage2").addEvent('click',function(){
+
+            var i=new Date().getTime();
+
+            var tpltext='<div class="th"><{t app="b2c"}>文本:<{/t}></div>'+
+                '<div class="td"><input type=hidden name=text['+i+'][id] value="'+i+'"><input type="text" name="text['+i+'][linkinfo]"></div>'+
+				'<div class="th"><{t app="b2c"}>链接:<{/t}></div>'+
+                '<div class="td"><input type="text" name="text['+i+'][linktarget]"></div>'+
+				'<div class="th"><{t app="b2c"}>分隔符:<{/t}></div>'+
+                '<div class="td"><input class="w" type="text" name="text['+i+'][fenge]"></div>'+
+                '<div class="td"><label  style="float:left">新窗口：<input type="checkbox"   name="text['+i+'][tg]" /></label><span class="go-prev">↑</span><span class="go-next">↓</span><span class="delete" onclick="$(this).getParents(\'.text_items\').destroy()">'+
+                '</span></div>'+
+            '';           
+
+            $('textAddress').getElement('.textcontent').adopt(new Element(tagtxt_type,{'html':tpltext,'width':'100%','class':tagtxt_class}));
+
+          
+        });        
+
+      
+
+
+
+		var panel = $('ad_ly_morelink');
+			panel.addEvent('click',function(e){
+		var clickTarget = $(e.target);
+
+		if(clickTarget.hasClass('go-prev')){
+			e.stop();
+			var item = clickTarget.getParent('.division'),
+			      itemP = item.getPrevious('.division');
+			     if(itemP){
+			      	item.injectBefore(itemP);
+			      }
+		}
+		if(clickTarget.hasClass('go-next')){
+			e.stop();
+			var item = clickTarget.getParent('.division'),
+			      itemN =item.getNext('.division');
+			      if(itemN){
+			      	item.injectAfter(itemN);
+			      }
+		}
+			})
+
+    })();
+
+
+
+
+
+
+
+</script>
+<style type="text/css">
+.text_items {line-height:25px;}
+.text_items input[type="text"]{border: #ddd 1px solid;height: 25px;border-radius: 3px;margin-left: 5px;}
+.text_items .td,.text_items .th{float:left;}
+.text_items .td{padding-right:10px;}
+.text_items .w{width:30px}
+.go-next,.go-prev{display:inline-block;border:1px solid #eee;padding:2px 9px;cursor: pointer;color:#204097;float:left;    display: block; height: 20px;line-height: 20px;
+}}
+.go-next:hover,.go-prev:hover{color:#f60;border-color:#f60; background-color:#eee}
+.go-next{margin-left:5px}
+#ad_ly_morelink .delete {height: 20px;width: 16px;cursor: pointer;float: left;_display: inline; margin-left: 5px;background-color: #fff;    margin-top: 5px;}
+</style>

@@ -1,0 +1,478 @@
+<style type="text/css">
+
+.index-goods-config {border:2px solid #f60;background:#fff;}
+.tableform td {}
+#maxKeys .delete {height:20px;width:16px;cursor:pointer;float:left;	_display:inline;margin-left:5px;background-color:#fff}
+#maxKeys .top-link-item {background-color:#E2E8EB;padding:5px 5px 3px;line-height:22px;	margin:2px 0;}
+#maxKeys ul {clear:both}
+#maxKeys li {float:left;_display:inline;margin-left:5px; padding-bottom:5px;}
+.span-auto{ padding-bottom:5px}
+button.sbtn,button.nbtn,button.nbtnb{ border:1px solid #ddd; background:#f9f9f9; padding:0 5px}
+</style>
+<div id="goods_shopmax_config" class="tableform">
+<div class="division">
+  <label> 版块classname: </label>
+  <input type="text" class="x-input" name="block_class" value="<{$setting.block_class}>"/>
+</div>
+<div class="division">
+ <div class="span-auto">
+    <label>版块标题:</label>
+      <input type="text" name="block_name" class="x-input" value="<{$setting.block_name}>" style="width:150px;"/>
+</div><div class="span-auto">
+	  <label>标题链接:</label>
+      <input type="text" name="title_url" class="x-input" value="<{$setting.title_url}>" style="width:150px;"/>
+ </div>
+
+      <div class="span-auto ">
+        <label>板块主色调:<{help}>整个板块的色调<{/help}> </label>
+        <{input type="color" value=$setting.bcover_div_color|default:'#333333' name="bcover_div_color"}>
+      </div>
+      <div class="span-auto">
+        <label>板块辅助色调:<{help}>整个板块的辅助色调<{/help}></label>
+        <{input type="color" value=$setting.bhover_div_color|default:'#eee' name="bhover_div_color"}>
+      </div>
+</div>
+<h4> 右侧链接设置：<font color="red">如果给链接的样式名设置为maxMore，该链接将被作为整个楼层的更多按钮</font></h4>
+    <div id="more_link" class="division clearfix" ><div id="maxKeys">
+
+        <br />
+        <{button label=$___b2c="添加链接到前面"|t:'b2c' onclick="maxAddKeys(0);" app="desktop" icon="btn_add.gif"}>
+
+        &nbsp;&nbsp;&nbsp;<{button label=$___b2c="添加链接到后面"|t:'b2c' onclick="maxAddKeys(-1);" app="desktop" icon="btn_add.gif"}><br />
+        <br />
+        <div id="maxcTitle"></div>
+        <{if $setting.keys}>
+
+        <{foreach from=$setting.keys item=keys key=key}>
+        <ul class="items">
+          <li >栏目标题
+            <input class="x-input" type="text" name="keys[<{$key}>][text]" style="width:80px" value="<{$keys.text}>">
+          </li>
+          <li >链接
+            <input class="x-input" type="text" name="keys[<{$key}>][url]" value="<{$keys.url}>" style="width:100px">
+          </li>
+          <li >样式名
+            <input class="x-input" type="text" name="keys[<{$key}>][mcname]" style="width:80px" value="<{$keys.mcname}>">
+          </li>
+          <li >新窗口<input  type="checkbox" name="keys[<{$key}>][target]" value="_blank" <{if $keys.target=='_blank'}> checked<{/if}>></li>
+          <li >
+            <button class="btn" type="button" onclick="maxAddKeys(this);"><span><span>在此项后填加</span></span></button>
+          </li>
+          <li ><span class="delete" title="删除" onclick="delLink(this)" style="cursor:pointer;"></span></li>
+        </ul>
+        <{/foreach}>
+
+        <{/if}> </div>
+		</div>
+
+<h4>商品设置： </h4>
+
+	  <div  class="division clearfix" >
+	  <h4>商品全局设置： </h4>
+<div class="">
+<div class="span-auto">
+    <label>商品容器宽度：<{help}>即单个商品区域父容器宽度<{/help}> </label>
+    <input type="text"  name="panel_width"  value="<{$setting.panel_width}>" />
+    px </div>
+  <div class="span-auto">
+    <label> 商品图片最大高度：</label>
+    <input type="text"  name="item_pic_maxheight" class="inputstyle" value="<{$setting.item_pic_maxheight}>" />
+    px </div>
+  <div class="span-auto ">
+    <label> 每个商品名称显示行数： </label>
+    <input type="text"  name="item_title_lines" value="<{$setting.item_title_lines}>" />
+    留空为全部显示 </div>
+
+  <div class="span-auto ">
+    <label> 价格标题:</label>
+    <input type="text"  name="pricetitle"  value="<{$setting.pricetitle}>" />
+  </div>
+</div>
+<div class="clear">
+
+</div>
+<h4>单个商品设置： </h4>
+	  <textarea class="multi" style="display:none;">
+			<input type="hidden" name="goods_list[{_id}][id]" value="{_id}" />
+		     	  <div class="span-auto">
+		  	        <label>标题：</label><input type="text" name="goods_list[{_id}][title]"  value="" class="inputstyle" style="width:100px;"/>
+		   	  </div>
+			  <div class="span-auto">
+		  	        <label>商品：</label><div class="notice"> 添加挂件后，编辑时可选择商品</div>
+		   	  </div>
+			<div class="span-auto">
+		  	        <label>商品图片尺寸：</label>
+					<select name="goods_list[{_id}][gpic_size]">
+			                    		<option value="goodsPicS" >小尺寸</option>
+			                    		<option value="goodsPicM" >中尺寸</option>
+			                    		<option value="goodsPicL" >大尺寸</option>
+		                    		</select>
+
+		  	</div>
+		  	  <div class="span-auto">
+		  	        <label>排序：</label>
+					<select  name="goods_list[{_id}][order_by_m]">
+						<{foreach from=$data.goods_order_by item=item}>
+							<option value="<{$item.condition}>"><{$item.label}></option>
+						<{/foreach}>
+					</select>
+
+		  	</div>
+
+			<div class="span-auto">
+		  	        <label>最多数：</label><input type="text" name="goods_list[{_id}][limit_m]"  value="" class="inputstyle" style="width:20px"/>
+		  	</div>
+			<div class="span-auto">
+		  	        <label>每行数：</label><input type="text" name="goods_list[{_id}][line_limit_m]"  value="" class="inputstyle" style="width:20px"/>
+		  	</div>
+
+		  	<div class="frt" style="padding-top:30px">
+		  	        <span class="goprev-btn lnk">
+		  		[^]&nbsp;上
+		  	       </span>
+		  	        <span class="gonext-btn lnk">
+		  		[v]&nbsp;下
+		  	       </span>
+			      <span class="del-btn lnk">
+		  		[-]&nbsp;删除
+		  	       </span>
+		  	</div>
+	</textarea>
+<{if count($setting.goods_list)>0}>
+	  <{foreach from=$setting.goods_list item=glist name=goodslist }>
+      <div class="division clearfix" style="border-top:1px dotted #ccc">
+  <input type="hidden" name="goods_list[<{$glist.id}>][id]" value="<{$glist.id}>" />
+  <div class="span-auto">
+          <label>标题：</label>
+          <input type="text" name="goods_list[<{$glist.id}>][title]"  value="<{$glist.title}>" class="inputstyle" style="width:100px;"
+：/>
+        </div>
+  <div class="span-auto"> <{assign var="pdt_name" value="goods_select_{$glist.id}" }>
+          <{assign var="obj_name" value="goods_select_linkobj_{$glist.id}" }>
+          <label>商品：</label>
+
+<{input type="goods_select"
+			  object="goods@b2c"
+			  filter=$goodslink_filter
+			  multiple="true"
+			  return_url="{$related_return_url}"
+			  rowselect="true"
+			  textcol="name"
+			  name="{$pdt_name}"
+			  linkid=$setting.{$pdt_name}
+			  value=$setting.{$pdt_name}
+			  view="b2c:admin/goods/detail/rel_items.html"
+			  }>
+</div>
+  <div class="span-auto">
+    <label>商品图片尺寸：</label>
+    <select name="goods_list[<{$glist.id}>][gpic_size]">
+      <option value="goodsPicS" <{if $glist.gpic_size == 'goodsPicS'}>selected<{/if}>>小尺寸</option>
+      <option value="goodsPicM" <{if $glist.gpic_size == 'goodsPicM'}>selected<{/if}>>中尺寸</option>
+      <option value="goodsPicL" <{if $glist.gpic_size == 'goodsPicL'}>selected<{/if}>>大尺寸</option>
+    </select>
+  </div>
+  <div class="span-auto">
+          <label>排序： </label>
+          <select  name="goods_list[<{$glist.id}>][order_by_m]">
+      <{foreach from=$data.goods_order_by item=item}> <option value="<{$item.condition}>"  <{if $glist.order_by_m == $item.condition}>selected<{/if}>><{$item.label}>
+      </option>
+      <{/foreach}>
+    </select>
+        </div>
+  <div class="span-auto">
+          <label>最多数：</label>
+          <input type="text" name="goods_list[<{$glist.id}>][limit_m]"  value="<{$glist.limit_m}>" class="inputstyle" style="width:20px"/>
+        </div>
+  <div class="span-auto">
+          <label>每行数：</label>
+          <input type="text" name="goods_list[<{$glist.id}>][line_limit_m]"  value="<{$glist.line_limit_m}>" class="inputstyle" style="width:20px"/>
+        </div><{if $env.foreach.goodslist.iteration == 1}>
+		 <div class="clear"></div>
+
+		  	        <div class="span-auto"><label>首屏广告图片地址：</label><input type="text" name="goods_list[<{$glist.id}>][img]"  value="<{$glist.img}>" class="inputstyle" style="width:200px"/> <button class="btn sbtn"  type="button">选择图片</button></div>
+					<div class="span-auto"><label>广告图片链接：</label><input type="text" name="goods_list[<{$glist.id}>][imgurl]"  value="<{$glist.imgurl}>" class="inputstyle" style="width:200px"/></div>
+					<div class="span-auto"><label>广告图片宽：</label><input type="text" name="goods_list[<{$glist.id}>][imgwidth]"  value="<{$glist.imgwidth}>" class="inputstyle" style="width:40px"/></div>
+					<div class="span-auto"><label>广告图片高：</label><input type="text" name="goods_list[<{$glist.id}>][imgheight]"  value="<{$glist.imgheight}>" class="inputstyle" style="width:40px"/>
+		  	</div><{/if}>
+
+  <div class="frt" style="padding-top:30px"><span class="goprev-btn lnk"> [^]&nbsp;上 </span> <span class="gonext-btn lnk"> [v]&nbsp;下 </span> <span class="del-btn lnk"> [-]&nbsp;删除 </span> </div>
+</div>
+<{/foreach}>
+<{/if}>
+<hr id="ghr"/>
+<button class="lnk btn new-btn" type="button"><span class="new-btn"><span class="new-btn">[+]添加一项</span></span></button>
+</div>
+<h4>品牌图片设置：<font color="red">非必填</font></h4>
+<div class="division clearfix"  >
+      <textarea class="bad" style="display:none;">
+		<input type="hidden" name="bad[{_id}][id]" value="{_id}" />
+		     	<div class="span-auto">
+		  	        <label>图片地址：<input type="text" name="bad[{_id}][pic]" value="" class="x-input" style="width:100px"/>
+		  	       <button class="btn sbtn" type="button">选择图片</button></label>
+		   	</div>
+		  	  <div class="span-auto">
+		  	        <label>链接地址：<input type="text" name="bad[{_id}][target_url]" value="" class="x-input" style="width:100px" /></label>
+		  	</div>
+                    <div class="span-auto">
+		  	        <label>品牌说明：<input type="text" name="bad[{_id}][note]" value="" class="x-input" style="width:50px"/></label>
+		  	</div>
+		  	<div class="span-auto">
+			      <span class="del-btn lnk">
+		  		[-]&nbsp;删除
+		  	       </span>
+		  	</div>
+	</textarea>
+      <{if count($setting.bad)>0}>
+      <{foreach from=$setting.bad item=bad}>
+      <div class="division clearfix">
+        <input class="x-input" type="hidden" name="bad[<{$bad.id}>][id]" value="<{$bad.id}>"/>
+        <div class="span-auto">
+          <label>图片地址：<input class="x-input" type="text" name="bad[<{$bad.id}>][pic]" value="<{$bad.pic}>" style="width:100px"/><button class="btn sbtn" type="button">选择图片</button></label>
+        </div>
+        <div class="span-auto">
+          <label>链接地址：<input class="x-input" type="text" name="bad[<{$bad.id}>][target_url]" value="<{$bad.target_url}>" style="width:100px"/></label>
+        </div>
+        <div class="span-auto">
+          <label>品牌说明：<input class="x-input" type="text" name="bad[<{$bad.id}>][note]" value="<{$bad.note}>" style="width:50px"/></label>
+        </div>
+        <div class="span-auto"><span class="del-btn lnk"> [-]&nbsp;删除 </span></div>
+      </div>
+      <{/foreach}>
+
+      <{/if}>
+      <hr id="bhr" />
+      <button class="lnk btn nbtnb" type="button">[+]添加一项</button></div>
+	  <h4>两侧侧广告图片设置： <font color="red">第一张图显示在左侧，第二张图显示在右侧</font></h4>
+		<div  class="division clearfix" >
+
+      <textarea class="ad" style="display:none;">
+		<input type="hidden" name="ad[{_id}][id]" value="{_id}" />
+		     	<div class="span-auto">
+		  	        <label>图片地址：<input type="text" name="ad[{_id}][pic]" value="" class="x-input" style="width:100px"/>
+		  	       <button class="btn sbtn" type="button">选择图片</button></label>
+		   	</div>
+		  	  <div class="span-auto">
+		  	        <label>链接地址：<input type="text" name="ad[{_id}][target_url]" value="" class="x-input" style="width:100px" /></label>
+		  	</div>
+			<div class="span-auto">
+		  	        <label>广告说明：<input type="text" name="ad[{_id}][note]" value="" class="x-input" style="width:50px"/></label>
+		  	</div>
+			<div class="span-auto">
+		  	      图片宽：<input type="text" name="ad[{_id}][width]" value="" class="x-input" style="width:20px"/>px&nbsp;&nbsp;
+					图片高：<input type="text" name="ad[{_id}][height]" value="" class="x-input" style="width:20px"/>px
+		  	</div>
+		  	<div class="frt">
+			      <span class="del-btn lnk">
+		  		[-]&nbsp;删除
+		  	       </span>
+		  	</div>
+	</textarea>
+      <{if count($setting.ad)>0}>
+      <{foreach from=$setting.ad item=ad}>
+      <div class="division clearfix">
+        <input class="x-input" type="hidden" name="ad[<{$ad.id}>][id]" value="<{$ad.id}>"/>
+        <div class="span-auto">
+          <label>图片地址：<input class="x-input" type="text" name="ad[<{$ad.id}>][pic]" value="<{$ad.pic}>" style="width:100px"/><button class="btn sbtn" type="button">选择图片</button> </label>
+        </div>
+
+        <div class="span-auto">
+          <label>链接地址：<input class="x-input" type="text" name="ad[<{$ad.id}>][target_url]" value="<{$ad.target_url}>" style="width:100px"/>
+          </label>
+        </div>
+
+        <div class="span-auto">
+          <label>广告说明：<input class="x-input" type="text" name="ad[<{$ad.id}>][note]" value="<{$ad.note}>" style="width:50px"/>
+          </label>
+        </div>
+		<div class="span-auto">
+		  	        图片宽：<input type="text" name="ad[<{$ad.id}>][width]" value="<{$ad.width}>" class="x-input" style="width:20px"/>px&nbsp;&nbsp;
+					图片高：<input type="text" name="ad[<{$ad.id}>][height]" value="<{$ad.height}>" class="x-input" style="width:20px"/>px
+		  	</div>
+        <div class="frt"><span class="del-btn lnk"> [-]&nbsp;删除 </span> </div>
+      </div>
+      <{/foreach}>
+
+      <{/if}>
+      <hr id="hr"/>
+      <button class="lnk btn nbtn" type="button">[+]添加一项</button></div>
+	  <h4>排行榜商品设置：<font color="red">如果不需要显示排行榜，请将“最多展示数量”设置为0，将自动不读取排行榜</font> </h4>
+   <div class="division clearfix" >
+      <div class="span-auto">
+        <label>
+        最多展示数量：</label>
+        <input type="text"  name="limit"  value="<{$setting.limit}>" />
+        个商品
+        </div>
+		<div class="span-auto">
+          <label>
+        标题最大行数：</label>
+        <input type="text"  name="titleHeight"  value="<{$setting.titleHeight|default:'5'}>" />
+        行
+         </div><div class="span-auto">
+		  <label>
+       不显示市场价：</label>
+<input type="checkbox"   name="show_mktprice" value="1"  <{if $setting.show_mktprice}>checked<{/if}> />
+
+        </div>
+      </div>
+      <div class="goods-selector-handle clearfix">
+        <div class="span-auto">
+          <label> <input type="radio"  name="selector" value="filter"  <{if $setting.selector=="filter"}>checked<{/if}> />&nbsp;范围选择商品 </label>
+        </div>
+        <div class="span-auto">
+          <label><input type="radio"  name="selector" value="select"  <{if $setting.selector=="select"}>checked<{/if}> />&nbsp;精确选择商品</label>
+        </div>
+      </div>
+      <div class="division goods-selector"> <div data-extend = "filter" <{if $setting.selector=="select"}>style="display:none"<{/if}>>
+
+        <{input type="goodsfilter"  name="goods_filter"  value=$setting.goods_filter}>
+        <div class="division"> 排序规则：
+          <select  name="goods_order_by">
+            <{foreach from=$data.goods_order_by item=item}> <option value="<{$item.condition}>"  <{if $setting.goods_order_by == $item.condition}>selected<{/if}>><{$item.label}>
+            </option>
+            <{/foreach}>
+          </select>
+        </div>
+      </div>
+      <div data-extend = "select"  <{if $setting.selector=="filter"}>style="display:none;"<{/if}>>
+     <{input type="goods_select"
+			  object="goods@b2c"
+			  filter=$goodslink_filter
+			  multiple="true"
+			  return_url="{$related_return_url}"
+			  rowselect="true"
+			  textcol="name"
+			  name="goods_select"
+			  linkid=$setting.goods_select
+			  value=$setting.goods
+			  view="b2c:admin/goods/detail/rel_items.html"
+			  }>
+      </div>
+      </div></div>
+</div>
+<script>
+(function(){
+	var load_photo_collect = function(target){
+		var url='index.php?app=desktop&act=alertpages&goto='+encodeURIComponent("index.php?app=image&ctl=admin_manage&act=image_broswer&type=big");
+		Ex_Loader('modedialog',function(){
+			return new imgDialog(url,{onCallback:function(image_id,image_src){
+					 target.value=image_src;
+			}})	;
+		});
+	};
+
+	var panel = $('goods_shopmax_config');
+	panel.getElements('label').setStyles({
+		display:'block',
+		lineHeight:25
+	});
+	panel.addEvent('click',function(e){
+		var clickTarget = $(e.target);
+		if(clickTarget.hasClass('new-btn')){
+			e.stop();
+			var newRow = new Element('div.division.clearfix',{
+				html:panel.getElement('textarea.multi').value.substitute({_id:$time()})
+			}).injectBefore(panel.getElement('hr'));
+
+			newRow.getElements('label').setStyles({
+					display:'block',
+					lineHeight:25
+			});
+		}
+		if(clickTarget.hasClass('nbtn')){
+			e.stop();
+			new Element('div.division.clearfix',{
+				html:panel.getElement('textarea.ad').value.replace().substitute({_id:$time()})
+			}).injectBefore(panel.getElement('#hr'));
+		}
+		if(clickTarget.hasClass('nbtnb')){
+			e.stop();
+			new Element('div.division.clearfix',{
+				html:panel.getElement('textarea.bad').value.replace().substitute({_id:$time()})
+			}).injectBefore(panel.getElement('#bhr'));
+		}
+		if(clickTarget.hasClass('sbtn')){
+			e.stop();
+			load_photo_collect(clickTarget.getParent('div.span-auto').getElement('input[type=text]'));
+		}
+
+		if(clickTarget.hasClass('del-btn')){
+			e.stop();
+			if(confirm('确认删除?'))
+			clickTarget.getParent('.division').dispose();
+		}
+
+
+		if(clickTarget.hasClass('goprev-btn')){
+			e.stop();
+			var item = clickTarget.getParent('.division'),
+			      itemP = item.getPrevious('.division');
+			     if(itemP){
+			      	item.injectBefore(itemP);
+			      }
+
+		}
+
+		if(clickTarget.hasClass('gonext-btn')){
+			e.stop();
+			var item = clickTarget.getParent('.division'),
+			      itemN =item.getNext('.division');
+			      if(itemN){
+			      	item.injectAfter(itemN);
+			      }
+
+
+		}
+
+
+	});
+
+	<{if count($setting.goods_list)<1}>
+		new Element('div.division.clearfix',{
+				html:panel.getElement('textarea.multi').value.replace().substitute({_id:$time()})
+			}).injectBefore(panel.getElement('#ghr')).getElements('label').setStyles({
+					display:'block',
+					lineHeight:25
+			});
+
+	<{/if}>
+})();
+
+
+    $$('#goods_shopmax_config .goods-selector-handle input[type=radio]').addEvent('change',function(){
+        var radio  = this;
+        if(!radio.checked)return;
+        $$('#goods_shopmax_config .goods-selector [data-extend]').each(function(item){
+            if(item.get('data-extend')!=radio.value){
+                item.hide();
+                }else{
+                item.show();
+            }
+        });
+    });
+   function maxAddKeys(n){
+	var content,
+	i = new Date().getTime();
+	content='\
+	<ul class="items">\
+		<li>栏目标题 <input class="x-input" type="text" name="keys['+i+'][text]" style="width:80px"></li>\
+		<li>链接 <input class="x-input" type="text" name="keys['+i+'][url]" style="width:100px"></li>\
+		<li>样式名 <input class="x-input" type="text" name="keys['+i+'][mcname]" style="width:80px"></li>\
+		<li>新窗口 <input type="checkbox" name="keys['+i+'][target]" value="_blank"></li>\
+		<li><button class="btn" type="button" onclick="maxAddKeys(this);"><span><span>在此项后填加</span></span></button></li>\
+		<li><span class="delete" title="删除" onclick="delLink(this)" style="cursor:pointer;"}></span></li>\
+	</ul>\
+	';
+	var newconfig=new Element('ul').set('html',content).getFirst();
+	if(n==-1){
+		newconfig.injectBottom($('maxKeys'));
+	}else{
+		newconfig.injectAfter(typeof n=='object' ? n.getParent('.items') : $('maxcTitle'));
+	}
+	}
+delLink=function(o){
+	$(o).getParent('.items').remove();
+}
+
+</script>

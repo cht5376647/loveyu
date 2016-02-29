@@ -1,0 +1,196 @@
+<div id="picAddress" class="tableform">
+    <div class="division widgetconfig">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <th width="20%"><{t}>轮播宽度：<{/t}></th>
+                <td width="30%" ><{input name="width" style="width:50px" value=$setting.width|default:'700' required="true" type="digits"}></td>
+                <th width="20%" >轮播高度：</th>
+                <td width="30%" ><{input name="height" style="width:50px" value=$setting.height|default:'340' required="true" type="digits"}></td>
+            </tr>
+            <tr>
+                <th width="20%"><{t}>切换效果：<{/t}></th>
+                <td width="30%" >
+                    <select name="switcheffect">
+                        <option value="scrollx" <{if $setting.switcheffect==scroll}>selected<{/if}>>横向滚动</option>
+                        <option value="fade" <{if $setting.switcheffect==fade}>selected<{/if}>>渐现渐隐</option>
+                    </select>
+                </td>
+                <th width="20%" >自动播放：</th>
+                <td width="30%" >
+                    <select name="autoplay">
+                        <option value="true" <{if $setting.autoplay=='true'}>selected<{/if}>>是</option>
+                        <option value="false"  <{if $setting.autoplay=='false'}>selected<{/if}>>否</option>
+                    </select>
+                </td>
+            </tr>
+			<tr>
+			</tr>
+			  <th width="20%" >是否新窗口打开</th>
+                <td width="30%" >
+                    <select name="blank">
+                        <option value="true" <{if $setting.blank=='true'}>selected<{/if}>>是</option>
+                        <option value="false"  <{if $setting.blank=='false'}>selected<{/if}>>否</option>
+                    </select>
+                </td>
+				<th width="20%" >缓冲效果：</th>
+                <td width="30%" >
+                    <select name="xiaoguo">
+                        <option value="linear" <{if $setting.xiaoguo=='linear'}>selected<{/if}>>线性</option>
+                        <option value="swing"  <{if $setting.xiaoguo=='swing'}>selected<{/if}>>摆动</option>
+						<option value="quadratic"  <{if $setting.xiaoguo=='quadratic'}>selected<{/if}>>二次</option>
+						<option value="cubic"  <{if $setting.xiaoguo=='cubic'}>selected<{/if}>>三次</option>
+						<option value="elastic"  <{if $setting.xiaoguo=='elastic'}>selected<{/if}>>弹性</option>
+					
+                    </select>
+                </td>
+               
+
+
+             <tr>
+			  <th width="20%"><{t}>滚动速度：<{/t}></th>
+                <td width="30%" > <{input name="sudu" style="width:50px" value=$setting.sudu|default:'300' required="true" type="text"}></td>
+
+               
+                 <th width="20%"><{t}>滚动间隔时间：<{/t}></th>
+                <td width="30%" > <{input name="interval" style="width:50px" value=$setting.interval|default:'5000' required="true" type="text"}></td>
+
+            </tr>
+        </table>
+    </div>
+        <div class="piccontent" id="ad_ly_multiple">
+        <{foreach from=$setting.pic item=data key=key}>
+        <div  class="pic_items clearfix division">
+                <div class="th"><{t app="b2c"}>图片地址:<{/t}></div>
+                <div class="td"><input type=hidden name=pic[<{$data.id}>][id] value="<{$data.id}>">
+                    <input type="text" name='pic[<{$data.id}>][link]' class="imgsrc" id="pic[<{$data.id}>][link]"  value="<{$data.link}>">
+                    <input type=button value=上传图片 class="uploadbtn">
+                </div>
+                <div class="th"><{t app="b2c"}>链接地址:<{/t}></div>
+                <div class="td"><input type="text" name="pic[<{$data.id}>][linktarget]" value="<{$data.linktarget}>"></div>
+                <div class="th"><{t app="b2c"}>描述:<{/t}></div>
+                <div class="td"><input type="text" name="pic[<{$data.id}>][linkinfo]" value="<{$data.linkinfo}>"></div>
+				<div class="th"><{t app="b2c"}>宽:<{/t}></div>
+                <div class="td"><input type="text" class="w" name="pic[<{$data.id}>][width]" value="<{$data.width}>"></div>
+				 <div class="th"><{t app="b2c"}>高:<{/t}></div>
+                <div class="td"><input type="text" class="w" name="pic[<{$data.id}>][height]" value="<{$data.height}>"></div>
+                <div class="td">
+					<span class="go-prev">↑</span>
+					<span class="go-next">↓</span>
+					<span onclick="$(this).getParents('.pic_items').destroy()" class="delete"></span>
+				</div>
+            
+        </div>
+        <{/foreach}>
+    </div> 
+    <{button label=$___b2c="添加图片"|t:'b2c' class="addimage" app="desktop" icon="btn_add.gif"}>
+    <div id="small_pic" style="display:none;">
+        <h4>添加主图图</h4>
+        <div class="small_piccontent">
+            <{foreach from=$setting.small_pic item=data key=key}>
+            <table  width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                    <th><{t app="b2c"}>图片地址:<{/t}></th>
+                    <td>
+                        <input type=hidden name=small_pic[<{$data.id}>][id] value="<{$data.id}>">
+                        <input name='small_pic[<{$data.id}>][link]' class="imgsrc" id="small_pic[<{$data.id}>][link]"  value="<{$data.link}>">
+                        <input type=button value=上传图片 class="uploadbtn">
+                    </td>
+                    <th><{t app="b2c"}>描述:<{/t}></th>
+                    <td>
+                        <input name="small_pic[<{$data.id}>][linkinfo]" value="<{$data.linkinfo}>">
+                    </td>
+                    <th><{t app="b2c"}>删除该图片及描述:<{/t}></th>
+                    <td><span onclick="$(this).getParent('table').destroy()"><{img src="bundle/delecate.gif" style="cursor:pointer;" alt=$___b2c="删除"|t:'b2c' title=$___b2c="删除"|t:'b2c' app="desktop"}></span></td>
+                </tr>
+            </table>
+            <{/foreach}>
+        </div>
+        <{button label=$___b2c="添加图片"|t:'b2c' class="addsmallimage" app="desktop" icon="btn_add.gif"}>
+    </div>
+</div>
+<script>
+
+    (function(){              
+        var tag_type='div',tag_class='pic_items clearfix division';
+
+        document.getElement(".addimage").addEvent('click',function(){
+
+            var i=new Date().getTime();
+
+            var tpl='<div class="th"><{t app="b2c"}>图片地址:<{/t}></div>'+
+                '<div class="td"><input type=hidden name=pic['+i+'][id] value="'+i+'"><input type="text" name="pic['+i+'][link]" class="imgsrc">'+
+                '<input type=button value=<{t app="b2c"}>上传图片<{/t}> class="uploadbtn" id="pic['+i+']"></div>'+
+                '<div class="th"><{t app="b2c"}>链接地址:<{/t}></div>'+
+                '<div class="td"><input type="text" name="pic['+i+'][linktarget]"></div>'+
+                '<div class="th"><{t app="b2c"}>描述:<{/t}></div>'+
+                '<div class="td"><input type="text" name="pic['+i+'][linkinfo]"></div>'+
+				'<div class="th"><{t app="b2c"}>宽:<{/t}></div>'+
+                '<div class="td"><input class="w" type="text" name="pic['+i+'][width]"></div>'+
+				'<div class="th"><{t app="b2c"}>高:<{/t}></div>'+
+                '<div class="td"><input class="w" type="text" name="pic['+i+'][height]"></div>'+
+                '<div class="td"><span class="go-prev">↑</span><span class="go-next">↓</span><span class="delete" onclick="$(this).getParents(\'.pic_items\').destroy()">'+
+                '</span></div>'+
+            '';           
+
+            $('picAddress').getElement('.piccontent').adopt(new Element(tag_type,{'html':tpl,'width':'100%','class':tag_class}));
+
+            $('pic['+i+']').addEvent('click',function(e){bindevent(this)});
+        });        
+
+        $$(".piccontent .uploadbtn").addEvent('click',function(e){bindevent(this)});
+        $$(".small_piccontent .uploadbtn").addEvent('click',function(e){bindevent(this)});
+
+        function bindevent(el){
+            var target=$(el).getParent('.pic_items').getElement('.imgsrc');
+            var url='index.php?app=desktop&act=alertpages&goto='+encodeURIComponent("index.php?app=image&ctl=admin_manage&act=image_broswer&type=big");
+            Ex_Loader('modedialog',function(){
+                return new imgDialog(url,{onCallback:function(image_id,image_src){
+                        target.value=image_src;
+                }});
+            });
+        }
+
+
+		var panel = $('ad_ly_multiple');
+			panel.addEvent('click',function(e){
+		var clickTarget = $(e.target);
+
+		if(clickTarget.hasClass('go-prev')){
+			e.stop();
+			var item = clickTarget.getParent('.division'),
+			      itemP = item.getPrevious('.division');
+			     if(itemP){
+			      	item.injectBefore(itemP);
+			      }
+		}
+		if(clickTarget.hasClass('go-next')){
+			e.stop();
+			var item = clickTarget.getParent('.division'),
+			      itemN =item.getNext('.division');
+			      if(itemN){
+			      	item.injectAfter(itemN);
+			      }
+		}
+			})
+
+    })();
+
+
+
+
+
+
+
+</script>
+<style type="text/css">
+.pic_items {line-height:25px;}
+.pic_items input[type="text"]{border: #ddd 1px solid;height: 25px;border-radius: 3px;margin-left: 5px;}
+.pic_items .td,.pic_items .th{float:left;}
+.pic_items .td{padding-right:10px;}
+.pic_items .w{width:30px}
+.go-next,.go-prev{display:inline-block;border:1px solid #eee;padding:2px 9px;cursor: pointer;color:#204097;float:left;    display: block; height: 20px;line-height: 20px;
+}}
+.go-next:hover,.go-prev:hover{color:#f60;border-color:#f60; background-color:#eee}
+.go-next{margin-left:5px}
+#ad_ly_multiple .delete {height: 20px;width: 16px;cursor: pointer;float: left;_display: inline; margin-left: 5px;background-color: #fff;    margin-top: 5px;}
+</style>

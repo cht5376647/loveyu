@@ -1,0 +1,127 @@
+<{*
+<pre class="notice">
+	<{dump var=$setting}>
+</pre>
+*}>
+
+<div id="cat_max_single_<{$widgets_id}>" class="cat-max-single">
+  <ul>
+    <{foreach from=$data.lv1 key=cat_lv1_key item=cat_lv1 name=cat_lv1_name}>
+    <li class="clearfix cat-item lv1 lv1-<{$env.foreach.cat_lv1_name.iteration}><{if $env.foreach.cat_lv1_name.first}> first<{elseif $env.foreach.cat_lv1_name.last}> last<{/if}>"
+			data-catid="<{$cat_lv1.cat_id}>"
+			data-typeid="<{$cat_lv1.type}>"
+			data-typename="<{$cat_lv1.type_name}>"></li>
+    <{/foreach}>
+  </ul>
+  <div style="display:none;"><{if $setting.show_cat_lv2}>
+    <{foreach from=$data.lv2 key=cat_lv2_key item=cat_lv2 name=cat_lv2_name}>
+    <div class="cat-item lv2"
+					        data-catpid="<{$cat_lv2.pid}>"
+					        data-catid="<{$cat_lv2.cat_id}>"
+					        data-typeid="<{$cat_lv2.type}>"
+					        data-typename="<{$cat_lv2.type_name}>">
+							<div class="cat-root-box">
+     <a class="depth-2"  href="<{$cat_lv2.url}>" <{if $setting.target_blank}>target="_blank"<{/if}>><span><{$cat_lv2.cat_name}></span></a>
+      <{if $setting.show_cat_lv3}>
+      <div class="cat-item lv3"></div>
+      <{/if}></div>
+	  <div class="cat-children-box">
+
+          <{if count($cat_lv2.brand)>0}>
+          <dl class="cat-link-brand">
+            <dt><span><{$setting.brand_title}></span></dt>
+            <dd>
+
+			<{foreach from=$cat_lv2.brand item=bid name=cat_lv1_brand}>
+              <{assign  var=brand value=$data.brand_list.{$bid} }><a  href="<{link app=b2c ctl=site_brand  arg0=$bid}>" <{if $setting.target_blank}>target="_blank"<{/if}> ><img src="<{$brand.brand_logo|storager}>" alt="<{$brand.brand_name}>" width="70" height="25"/></a>
+			  <{/foreach}>
+          </dl>
+
+        <{/if}> </div>
+    </div>
+    <{/foreach}>
+    <{/if}>
+
+    <{if $setting.show_cat_lv3}>
+    <{foreach from=$data.lv3 key=cat_lv3_key item=cat_lv3 name=cat_lv3_name}><a href="<{$cat_lv3.url}>" class="depth-3"
+					        data-catpid="<{$cat_lv3.pid}>"
+					        data-catid="<{$cat_lv3.cat_id}>"
+					        data-typeid="<{$cat_lv3.type}>"
+					        data-typename="<{$cat_lv3.type_name}>" <{if $setting.target_blank}>target="_blank"<{/if}>><span><{$cat_lv3.cat_name}></span></a><{/foreach}>
+    <{/if}></div>
+</div>
+<script type="text/javascript">
+addEvent('domready',function(){
+		//var _t = $time();
+		var container = $('cat_max_single_<{$widgets_id}>');
+		var catchildren = container.getElements('li.lv1');
+		var containerPos = container.getPosition([window]);
+		var mousEenterTimer = 0,mouseLeaveTimer = 0;
+
+
+		container.getElements('li.lv1').each(function(item){
+			var catLv1ID =item.get('data-catid');
+			var dls = container.getElements('div[data-catpid='+catLv1ID+']');
+			dls.inject(item,'bottom');
+			var dls_length = dls.length;
+			if(dls&&dls_length>1){
+				for(var dlsnum = 0;dlsnum<dls_length;dlsnum++){
+				dls[dlsnum].addClass('lv2-'+(dlsnum+1));
+				dls[0].addClass('first');
+				dls[dls_length-1].addClass('last');
+				}
+			}
+			if(catLv1ID==<{$setting.shopmax_sglgcat}>){
+				item.setStyle('display','block');
+				item.getElements('.lv2').setStyle('display','block');
+			}
+
+		});
+
+		container.getElements('.lv2').each(function(item){
+			var ccbEl = item.getElement('div.cat-children-box');
+			var catLv2ID = item.get('data-catid');
+			if(catLv2ID==<{$setting.shopmax_sglgcat}>){
+				item.setStyle('display','block');
+				item.getParent('li.lv1').setStyle('display','block');
+			}
+			item.addEvents({
+				'mouseenter':function(){
+					clearTimeout(mousEenterTimer);
+					clearTimeout(this.retrieve('mouseLeaveTimer'));
+					mousEenterTimer =(function(){
+						this.addClass('mouseenter-cat');
+						var _pos1 = window.getScrollTop() - containerPos.y;
+						var _pos2 =this.retrieve('_pos2');
+						if(!_pos2)_pos2 =  this.getPosition().y+this.getSize().y;
+						ccbEl.setStyle('top',_pos1>0?_pos1:0);
+						var _pos3 = ccbEl.getPosition().y+ccbEl.getSize().y;
+						var _limit = _pos3 - _pos2;
+						var flexDeviate = 4;
+						if(_limit<0){
+							ccbEl.setStyle('top',ccbEl.getStyle('top').toInt()+Math.abs(_limit));
+							flexDeviate = (-flexDeviate);
+						}
+
+					}).delay(200,this);
+				},
+				'mouseleave':function(){
+					clearTimeout(mousEenterTimer);
+					this.store('mouseLeaveTimer',
+						mouseLeaveTimer =  this.removeClass.delay(150,this,['mouseenter-cat'])
+						);
+				}
+			});
+			var dlss = container.getElements('a[data-catpid='+catLv2ID+']');
+			var ccEl  = new Element('div.cat-children').injectTop(ccbEl).adopt(dlss);
+			var tmpInject = [],redundancy = item.getElement('.lv3');
+					dlss.each(function(a){
+						tmpInject.push(new Element('a',{href:a.get('href'),text:a.get('text')}));
+					});
+					redundancy.adopt(tmpInject);
+
+		});
+
+})
+		//console.info($time()-_t);
+</script>

@@ -1,0 +1,47 @@
+<div class="maxTVLeft01"><{widgets id="maxtv1"}></div>
+<div class="maxTVLeft02">
+      <h2 class="maxTitle">查找商品</h2>
+      <div class="maxContent">
+        <ul>
+          <li>
+            <input name="tvlist" type="radio" value="1" checked="checked" onclick="setTvID(1)">
+            家有一台</li>
+          <li>
+            <input name="tvlist" type="radio" value="2" onclick="setTvID(2)">
+            家有二台</li>
+          <li>
+		  <input type="hidden" name="tv_id" id="tv_id" value="1">
+            <select name="datastr" id="datastr">
+			
+				<option value="2013-06-12">2013-06-12</option>
+				<option value="2013-06-11">2013-06-11</option>
+				<option value="2013-06-10">2013-06-10</option>
+				<option value="2013-06-09">2013-06-09</option>
+				<option value="2013-06-08">2013-06-08</option>
+				<option value="2013-06-07">2013-06-07</option>
+		            </select>
+          </li>
+          <li>
+            <select name="timestr" id="timestr">
+			<option value="0">请选择时间段</option>
+		    <option value="1">10:00-12:00</option>
+		    <option value="2">12:00-14:00</option>
+		    <option value="3">14:00-16:00</option>
+		    <option value="4">16:00-18:00</option>
+		    <option value="5">18:00-20:00</option>
+		    <option value="6">20:00-22:00</option>
+		    <option value="7">22:00-24:00</option>
+		    <option value="8">00:00-06:00</option>
+		    <option value="9">06:00-10:00</option>
+            </select>
+          </li>
+          <li>
+            <input class="tv2013srsp" type="text" name="pname" id="pname" emptytext="输入商品名称" value="输入商品名称" onfocus="if(this.value==this.getAttribute('emptyText'))this.value=''" onblur="if(this.value=='')this.value=this.getAttribute('emptyText')" onkeypress="javascript: if(event.keyCode == 13) searchTvTable()">
+          </li>
+          <li>
+            <input class="tv2013search" type="button" onclick="searchTvTable()" value="搜索">
+          </li>
+        </ul>
+      </div>
+</div><div class="maxTVLeft03">
+<{widgets id="maxtv3"}></div>

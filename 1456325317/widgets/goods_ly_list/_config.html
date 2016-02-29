@@ -1,0 +1,433 @@
+<div id="goods_exshow_config" class="tableform">
+
+    <div class="division">
+
+<h4>基本设置</h4>
+			<hr />
+      
+        <p class="item-1">
+			<span>
+				<label for="">挂件标题：</label>
+				 <{input type="text" name="title" value=$setting.title}>
+			</span>
+			<span>
+				<label for="">挂件class：</label>
+				 <{input type="text" name="class" value=$setting.class}>
+			</span>
+			<span>
+				<label for="">每行数量(<font color="red">轮播模式下为轮播个数</font>)：</label>
+				 <{input type="text" name="limitc" value=$setting.limitc size="3"}>个商品
+			</span
+			<span>
+				<label for="">最多展示数量：</label>
+				 <{input type="text" name="limit" value=$setting.limit size="3"}>个商品
+			</span>
+			<span>
+				<label>价格标题：</label>
+				<{input type="text" name="texttag"  value=$setting.texttag}>
+			</span>
+			<span>
+				<label>市场价标题：</label>
+				<{input type="text" name="stexttag"  value=$setting.stexttag}>
+			</span>
+			
+        </p>
+		<p>
+			<h4>商品图片设置</h4>
+			<hr />
+			<span>
+			  <label>图片尺寸：</label>
+		                    
+		                    	<select name="gpic_size">
+		                    		<option value="goodsPicS" <{if $setting.gpic_size == 'goodsPicS'}>selected<{/if}>>小尺寸</option>
+		                    		<option value="goodsPicM" <{if $setting.gpic_size == 'goodsPicM'}>selected<{/if}>>中尺寸</option>
+		                    		<option value="goodsPicL" <{if $setting.gpic_size == 'goodsPicL'}>selected<{/if}>>大尺寸</option>
+		                    	</select>
+		                  
+			</span>
+			<span>
+				<label>最大宽度：</label>
+				<{input type="text" name="width"  style="width:30px"  value=$setting.width}>
+			</span>
+			<span>
+				<label>最大高度：</label>
+				<{input type="text" name="height" style="width:30px" value=$setting.height}>
+			</span>
+
+		</p>
+        <p>
+			<h4>显示设置</h4>
+			<hr />
+			<label>显示市场价：<input type="checkbox"   name="show_price" value="1"  <{if $setting.show_price}>checked<{/if}> /></label>
+			<label>显示市场价：<input type="checkbox"   name="show_market" value="1"  <{if $setting.show_market}>checked<{/if}> /></label>
+			<label>显示简介：<input type="checkbox"   name="jianjie" value="1"  <{if $setting.jianjie}>checked<{/if}> /></label>
+			<label>显示折扣：<input type="checkbox"   name="discount" value="1"  <{if $setting.discount}>checked<{/if}> /></label>
+			
+			<!--  <label>显示商品评分：<input type="checkbox"   name="show_star" value="1"  <{if $setting.show_star}>checked<{/if}> /></label></label>-->
+			<label>显示商品序号：<input type="checkbox"   name="shizhi" value="1"  <{if $setting.shizhi}>checked<{/if}> /></label></label>
+		</p>
+		<p>
+			<h4>模式选择</h4>
+			<hr />
+			<label> <input onchange="$('lunbo').hide()" type="radio"   name="moshi"  value="1" <{if $setting.moshi=="1"}>checked<{/if}>> 图片在上（普通模式）</label>
+            <label> <input onchange="$('lunbo').hide()" type="radio" name="moshi" value="2" <{if $setting.moshi=="2"}>checked<{/if}>> 图片在左（排行榜）</label>
+			<label> <input onchange="$('lunbo').show()" type="radio"   name="moshi"  value="3" <{if $setting.moshi=="3"}>checked<{/if}>> 轮播模式</label>
+		</p>
+		<p>
+		    <div class="division" style="border:1px solid #ddd;<{if $setting.moshi=="3"}><{else}>display: none;<{/if}>" id="lunbo" >
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <th width="20%"><{t}>轮播宽度：<{/t}></th>
+                <td width="30%" ><{input name="lbwidth" style="width:50px" value=$setting.lbwidth|default:'700' required="true" type="digits"}></td>
+                <th width="20%" >轮播高度：</th>
+                <td width="30%" ><{input name="lbheight" style="width:50px" value=$setting.lbheight|default:'340' required="true" type="digits"}></td>
+            </tr>
+            <tr>
+                <th width="20%"><{t}>切换效果：<{/t}></th>
+                <td width="30%" >
+                    <select name="switcheffect">
+                        <option value="scrollx" <{if $setting.switcheffect==scroll}>selected<{/if}>>横向滚动</option>
+                        <option value="fade" <{if $setting.switcheffect==fade}>selected<{/if}>>渐现渐隐</option>
+                    </select>
+                </td>
+                <th width="20%" >自动播放：</th>
+                <td width="30%" >
+                    <select name="autoplay">
+                        <option value="true" <{if $setting.autoplay=='true'}>selected<{/if}>>是</option>
+                        <option value="false"  <{if $setting.autoplay=='false'}>selected<{/if}>>否</option>
+                    </select>
+                </td>
+            </tr>
+			<tr>
+			</tr>
+			  <th width="20%" >是否循环轮播</th>
+                <td width="30%" >
+                    <select name="xx">
+                        <option value="true" <{if $setting.xx=='true'}>selected<{/if}>>是</option>
+                        <option value="false"  <{if $setting.xx=='false'}>selected<{/if}>>否</option>
+                    </select>
+                </td>
+				<th width="20%" >缓冲效果：</th>
+                <td width="30%" >
+                    <select name="xiaoguo">
+                        <option value="linear" <{if $setting.xiaoguo=='linear'}>selected<{/if}>>线性</option>
+                        <option value="swing"  <{if $setting.xiaoguo=='swing'}>selected<{/if}>>摆动</option>
+						<option value="quadratic"  <{if $setting.xiaoguo=='quadratic'}>selected<{/if}>>二次</option>
+						<option value="cubic"  <{if $setting.xiaoguo=='cubic'}>selected<{/if}>>三次</option>
+						<option value="elastic"  <{if $setting.xiaoguo=='elastic'}>selected<{/if}>>弹性</option>
+					
+                    </select>
+                </td>
+               
+
+
+             <tr>
+			  <th width="20%"><{t}>滚动速度：<{/t}></th>
+                <td width="30%" > <{input name="sudu" style="width:50px" value=$setting.sudu|default:'300' required="true" type="text"}></td>
+
+               
+                 <th width="20%"><{t}>滚动间隔时间：<{/t}></th>
+                <td width="30%" > <{input name="interval" style="width:50px" value=$setting.interval|default:'5000' required="true" type="text"}></td>
+
+            </tr>
+        </table>
+    </div>
+		
+		</p>
+	<p>
+	<h4>广告图片设置</h4>
+	<hr />
+
+    <div class="piccontent" id="ad_ly_multiple">
+        <{foreach from=$setting.pic item=dataitem key=key}>
+        <div  class="pic_items clearfix division">
+                <div class="th"><{t app="b2c"}>图片地址:<{/t}></div>
+                <div class="td"><input type=hidden name=pic[<{$dataitem.id}>][id] value="<{$dataitem.id}>">
+                    <input type="text" name='pic[<{$dataitem.id}>][link]' class="imgsrc" id="pic[<{$dataitem.id}>][link]"  value="<{$dataitem.link}>">
+                    <input type=button value=上传图片 class="uploadbtn">
+                </div>
+                <div class="th"><{t app="b2c"}>链接地址:<{/t}></div>
+                <div class="td"><input type="text" name="pic[<{$dataitem.id}>][linktarget]" value="<{$dataitem.linktarget}>"></div>
+                <div class="th"><{t app="b2c"}>描述:<{/t}></div>
+                <div class="td"><input type="text" name="pic[<{$dataitem.id}>][linkinfo]" value="<{$dataitem.linkinfo}>"></div>
+				<div class="th"><{t app="b2c"}>宽:<{/t}></div>
+                <div class="td"><input type="text" class="w" name="pic[<{$dataitem.id}>][width]" value="<{$dataitem.width}>"></div>
+				 <div class="th"><{t app="b2c"}>高:<{/t}></div>
+                <div class="td"><input type="text" class="w" name="pic[<{$dataitem.id}>][height]" value="<{$dataitem.height}>"></div>
+                <div class="td">
+					<label style="float:left">新窗口：<input type="checkbox"   name="pic[<{$dataitem.id}>][tg]" value="1"  <{if $dataitem.tg}>checked<{/if}> /></label>
+					<span class="go-prev">↑</span>
+					<span class="go-next">↓</span>
+					<span onclick="$(this).getParents('.pic_items').destroy()" class="delete"></span>
+				</div>
+            
+        </div>
+        <{/foreach}>
+    </div> 
+	 
+    <{button label=$___b2c="添加图片"|t:'b2c' class="addimage" app="desktop" icon="btn_add.gif"}>
+</p>
+<p>
+<div class="" id="textAddress">
+
+    <div class="textcontent" id="ad_ly_morelink">
+        <{foreach from=$setting.text item=dataitem key=key}>
+        <div  class="text_items clearfix division">
+               <div class="th"><input type=hidden name=text[<{$dataitem.id}>][id] value="<{$dataitem.id}>"><{t app="b2c"}>文本:<{/t}></div>
+                <div class="td"><input type="text" name="text[<{$dataitem.id}>][linkinfo]" value="<{$dataitem.linkinfo}>"></div>
+                <div class="th"><{t app="b2c"}>链接:<{/t}></div>
+                <div class="td"><input type="text" name="text[<{$dataitem.id}>][linktarget]" value="<{$dataitem.linktarget}>"></div>
+				<div class="th"><{t app="b2c"}>分隔符:<{/t}></div>
+                <div class="td"><input class="w" type="text" name="text[<{$dataitem.id}>][fenge]" value="<{$dataitem.fenge}>"></div>
+                <div class="td">
+					<label style="float:left">新窗口：<input type="checkbox"   name="text[<{$dataitem.id}>][tg]" value="1"  <{if $dataitem.tg}>checked<{/if}> /></label>
+					<span class="go-prev">↑</span>
+					<span class="go-next">↓</span>
+					<span onclick="$(this).getParents('.text_items').destroy()" class="delete"></span>
+				</div>
+        </div>
+        <{/foreach}>
+    </div> 
+    <{button label=$___b2c="添加链接"|t:'b2c' class="addimage2" app="desktop" icon="btn_add.gif"}>
+	
+</div>
+</p>
+</div>
+    <div class="division">
+        <div class="goods-selector-handle clearfix">
+            <div class="span-auto">
+                <label>
+                    <input type="radio"  name="selector" value="filter" <{if $setting.selector=="filter"}>checked<{/if}> />&nbsp;范围选择商品
+                </label>
+            </div>
+            <div class="span-auto">
+                <label><input type="radio"  name="selector" value="select" <{if $setting.selector=="select"}>checked<{/if}> />&nbsp;精确选择商品</label>
+            </div>
+        </div>
+        <div class="division goods-selector">
+            <div data-extend = "filter" <{if $setting.selector=="select"}>style="display:none"<{/if}>> 
+                <{input type="goodsfilter"  name="goods_filter"  value=$setting.goods_filter}>
+                <div class="division">
+                    排序规则：
+                    <select  name="goods_order_by">
+                        <{foreach from=$data.goods_order_by item=item}>
+                        <option value="<{$item.condition}>"  <{if $setting.goods_order_by == $item.condition}>selected<{/if}>><{$item.label}></option>
+                        <{/foreach}>
+                    </select>
+                </div>
+            </div>
+            <div data-extend = "select" <{if $setting.selector=="filter"}>style="display:none;"<{/if}>>
+                <{input type="goods_select" 
+                object="goods@b2c" 
+                pdt_name="goods_select" 
+                pdt_value=$setting.goods_select 
+                obj_name="goods_select_linkobj"  
+                obj_value=$setting.goods_select_linkobj  
+                breakpoint=0
+                }>
+            </div>
+
+        </div>
+		   
+    </div>
+</div>
+<script>
+    $$('#goods_exshow_config .goods-selector-handle input[type=radio]').addEvent('change',function(){
+        var radio  = this;
+        if(!radio.checked)return;
+        $$('#goods_exshow_config .goods-selector [data-extend]').each(function(item){
+
+            if(item.get('data-extend')!=radio.value){
+                item.hide();
+                }else{
+                item.show();
+            }
+
+        });
+
+    });
+</script>
+<script>
+
+    (function(){              
+        var tag_type='div',tag_class='pic_items clearfix division';
+
+        document.getElement(".addimage").addEvent('click',function(){
+
+            var i=new Date().getTime();
+
+            var tpl='<div class="th"><{t app="b2c"}>图片地址:<{/t}></div>'+
+                '<div class="td"><input type=hidden name=pic['+i+'][id] value="'+i+'"><input type="text" name="pic['+i+'][link]" class="imgsrc">'+
+                '<input type=button value=<{t app="b2c"}>上传图片<{/t}> class="uploadbtn" id="pic['+i+']"></div>'+
+                '<div class="th"><{t app="b2c"}>链接地址:<{/t}></div>'+
+                '<div class="td"><input type="text" name="pic['+i+'][linktarget]"></div>'+
+                '<div class="th"><{t app="b2c"}>描述:<{/t}></div>'+
+                '<div class="td"><input type="text" name="pic['+i+'][linkinfo]"></div>'+
+				'<div class="th"><{t app="b2c"}>宽:<{/t}></div>'+
+                '<div class="td"><input class="w" type="text" name="pic['+i+'][width]"></div>'+
+				'<div class="th"><{t app="b2c"}>高:<{/t}></div>'+
+                '<div class="td"><input class="w" type="text" name="pic['+i+'][height]"></div>'+
+                '<div class="td"><label  style="float:left">新窗口：<input type="checkbox"   name="pic['+i+'][tg]" /></label><span class="go-prev">↑</span><span class="go-next">↓</span><span class="delete" onclick="$(this).getParents(\'.pic_items\').destroy()">'+
+                '</span></div>'+
+            '';           
+
+            $('goods_exshow_config').getElement('.piccontent').adopt(new Element(tag_type,{'html':tpl,'width':'100%','class':tag_class}));
+
+            $('pic['+i+']').addEvent('click',function(e){bindevent(this)});
+        });        
+
+        $$(".piccontent .uploadbtn").addEvent('click',function(e){bindevent(this)});
+        $$(".small_piccontent .uploadbtn").addEvent('click',function(e){bindevent(this)});
+
+        function bindevent(el){
+            var target=$(el).getParent('.pic_items').getElement('.imgsrc');
+            var url='index.php?app=desktop&act=alertpages&goto='+encodeURIComponent("index.php?app=image&ctl=admin_manage&act=image_broswer&type=big");
+            Ex_Loader('modedialog',function(){
+                return new imgDialog(url,{onCallback:function(image_id,image_src){
+                        target.value=image_src;
+                }});
+            });
+        }
+
+
+		var panel = $('ad_ly_multiple');
+			panel.addEvent('click',function(e){
+		var clickTarget = $(e.target);
+
+		if(clickTarget.hasClass('go-prev')){
+			e.stop();
+			var item = clickTarget.getParent('.division'),
+			      itemP = item.getPrevious('.division');
+			     if(itemP){
+			      	item.injectBefore(itemP);
+			      }
+		}
+		if(clickTarget.hasClass('go-next')){
+			e.stop();
+			var item = clickTarget.getParent('.division'),
+			      itemN =item.getNext('.division');
+			      if(itemN){
+			      	item.injectAfter(itemN);
+			      }
+		}
+			})
+
+    })();
+
+
+
+
+
+
+
+</script>
+<style type="text/css">
+.pic_items {line-height:25px;}
+.pic_items input[type="text"]{border: #ddd 1px solid;height: 25px;border-radius: 3px;margin-left: 5px;width:94px}
+.pic_items .td,.pic_items .th{float:left;}
+.pic_items .td{padding-right:10px;}
+.pic_items .w{width:30px}
+.go-next,.go-prev{display:inline-block;border:1px solid #eee;padding:2px 9px;cursor: pointer;color:#204097;float:left;    display: block; height: 20px;line-height: 20px;
+}}
+.go-next:hover,.go-prev:hover{color:#f60;border-color:#f60; background-color:#eee}
+.go-next{margin-left:5px}
+#ad_ly_multiple .delete {height: 20px;width: 16px;cursor: pointer;float: left;_display: inline; margin-left: 5px;background-color: #fff;    margin-top: 5px;}
+.wgtconfig .item-1 .x-input{width:30px; margin-right:5px}
+.dialog .tableform h4{height:30px; line-height:30px; font-family:microsoft yahei,arial,verdana,sans-serif;color:#f60;margin:0px 0px;padding:0;padding-top:10px;}
+.wgtconfig hr{margin-bottom:10px;height:1px }
+
+</style>
+<script>
+
+    (function(){              
+//      var options = [];
+//      new Request({
+//          url: '<{link app=starbuy ctl=admin_promotion act=_ajax_group_products}>',
+//          onSuccess: function(rs) {
+//              rs = JSON.decode(rs);
+//              rs.each(function(r){
+//                  options.push('<option value="' + r.url + '">' + r.name + '</option>');
+//              });
+//          }
+//      }).post();
+
+        var tagtxt_type='div',tagtxt_class='text_items clearfix division';
+
+        document.getElement(".addimage2").addEvent('click',function(){
+
+            var i=new Date().getTime();
+
+            var tpltext='<div class="th"><{t app="b2c"}>文本:<{/t}></div>'+
+                '<div class="td"><input type=hidden name=text['+i+'][id] value="'+i+'"><input type="text" name="text['+i+'][linkinfo]"></div>'+
+				'<div class="th"><{t app="b2c"}>链接:<{/t}></div>'+
+                '<div class="td"><input type="text" name="text['+i+'][linktarget]"></div>'+
+				'<div class="th"><{t app="b2c"}>分隔符:<{/t}></div>'+
+                '<div class="td"><input class="w" type="text" name="text['+i+'][fenge]"></div>'+
+                '<div class="td"><label  style="float:left">新窗口：<input type="checkbox"   name="text['+i+'][tg]" /></label><span class="go-prev">↑</span><span class="go-next">↓</span><span class="delete" onclick="$(this).getParents(\'.text_items\').destroy()">'+
+                '</span></div>'+
+            '';           
+
+            $('textAddress').getElement('.textcontent').adopt(new Element(tagtxt_type,{'html':tpltext,'width':'100%','class':tagtxt_class}));
+
+          
+        });        
+
+      
+
+
+
+		var panel = $('ad_ly_morelink');
+			panel.addEvent('click',function(e){
+		var clickTarget = $(e.target);
+
+		if(clickTarget.hasClass('go-prev')){
+			e.stop();
+			var item = clickTarget.getParent('.division'),
+			      itemP = item.getPrevious('.division');
+			     if(itemP){
+			      	item.injectBefore(itemP);
+			      }
+		}
+		if(clickTarget.hasClass('go-next')){
+			e.stop();
+			var item = clickTarget.getParent('.division'),
+			      itemN =item.getNext('.division');
+			      if(itemN){
+			      	item.injectAfter(itemN);
+			      }
+		}
+			})
+
+    })();
+
+
+
+
+
+
+
+</script>
+
+<style type="text/css">
+.text_items {line-height:25px;}
+.text_items input[type="text"]{border: #ddd 1px solid;height: 25px;border-radius: 3px;margin-left: 5px;}
+.text_items .td,.text_items .th{float:left;}
+.text_items .td{padding-right:10px;}
+.text_items .w{width:30px}
+.go-next,.go-prev{display:inline-block;border:1px solid #eee;padding:2px 9px;cursor: pointer;color:#204097;float:left;    display: block; height: 20px;line-height: 20px;
+}}
+.go-next:hover,.go-prev:hover{color:#f60;border-color:#f60; background-color:#eee}
+.go-next{margin-left:5px}
+#ad_ly_morelink .delete {height: 20px;width: 16px;cursor: pointer;float: left;_display: inline; margin-left: 5px;background-color: #fff;    margin-top: 5px;}
+
+.text_items {line-height:25px;}
+.text_items input[type="text"]{border: #ddd 1px solid;height: 25px;border-radius: 3px;margin-left: 5px;}
+.text_items .td,.text_items .th{float:left;}
+.text_items .td{padding-right:10px;}
+.text_items .w{width:30px}
+.go-next,.go-prev{display:inline-block;border:1px solid #eee;padding:2px 9px;cursor: pointer;color:#204097;float:left;    display: block; height: 20px;line-height: 20px;
+}}
+.go-next:hover,.go-prev:hover{color:#f60;border-color:#f60; background-color:#eee}
+.go-next{margin-left:5px}
+#ad_ly_morelink .delete {height: 20px;width: 16px;cursor: pointer;float: left;_display: inline; margin-left: 5px;background-color: #fff;    margin-top: 5px;}
+</style>

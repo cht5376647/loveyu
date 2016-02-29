@@ -1,0 +1,44 @@
+
+<dl class="basic-shopmax-comment <{$setting.block_class}>" id="basic_shopmax_comment_<{$widgets_id}>">
+	<dt class="maxTitle">
+		<h3><{$setting.title}></h3>
+		<ul>
+		  <{foreach from=$data item=item key=key name=commentitem}>
+				<{if $env.foreach.commentitem.iteration <= $setting.limit/3}>
+				<li>&#8226;</li>
+				<{/if}>
+		  <{/foreach}>
+		</ul>
+	</dt>
+	<dd class="maxContent clearfix">
+		<div class="">
+			<{foreach from=$data item=item key=key name=commentitem}>
+			<{if $env.foreach.commentitem.iteration%3==1 }>
+			<ul class="clearfix"><{/if}>
+				<li class="clearfix item item<{$env.foreach.commentitem.iteration}><{if $env.foreach.commentitem.first}> first<{/if}><{if $env.foreach.commentitem.last}> last<{/if}>">
+					<div class="p"> <a href="<{$item.goodsLink}>" target="_blank" title="<{$item.goodsName}>"><img src="<{$item.goodsPic}>" width="120" height="120" alt="<{$item.goodsName}>" /></a><i></i></div>
+					<div class="i">
+						<h6 class="clearfix"><a href="<{$item.goodsLink}>" target="_blank" title="<{$item.goodsName}>"><{$item.goodsName}></a></h6>
+						<div class="gel-intro">
+							<{$item.comment}>
+				</div><i></i>
+				</div>
+				</li>
+				 <{if $env.foreach.commentitem.iteration%3==0 }></ul>
+				 <{/if}>
+				 <{counter assign="result" print=false }>
+			<{/foreach}>
+		</div>
+	</dd>
+</dl>
+<script>
+    new Switchable('basic_shopmax_comment_<{$widgets_id}>',{
+        effect:'scrollx',
+        autoplay:true,
+		haslrbtn:false,
+		hasTriggers:true,
+		panels:'.maxContent ul',
+		triggers:'.maxTitle li'
+
+    });
+</script>

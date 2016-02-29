@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+<meta http-equiv="x-ua-compatible" content="ie=7" />
+<head>
+<meta charset="UTF-8">
+<{header}>
+<link href="images/max.css" rel="stylesheet" type="text/css" />
+<link href="images/member.css" rel="stylesheet" type="text/css" />
+<script src="images/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">jQuery.noConflict();</script>
+<script src="images/home-slides.js"></script>
+</head><body class="max-passport-page">
+ <{require file="block/login-head.html" }>
+		 <div class="maxAllwrap clearfix">
+			<div class="login-bg"></div>
+			<div class="maxwIn"><{main}></div>
+		</div>
+
+
+<script>
+try
+
+{
+if ($$('.sign-title h2')[0].get('html')=='用户登录')
+{
+$$('.sign-title h2')[0].set('html','会员登录');
+$('page_signin').getElements('.form-item').each(function(item){
+if (item.getElement('label').get('html')=='登录帐号：')
+{item.getElement('label').set('html','账号：')
+};
+if (item.getElements('a').get('html')=='看不清楚?换一个')
+{item.getElements('a').set('html','看不清?换一张')
+}; 
+
+item.getElements('.form-sub-label').each(function(items){
+if (items.get('for')=='for_auto_signin'){
+	items.hide();
+	
+	$$('.need-signup')[0].getElements('a').inject(items,'after').set('html','立即注册').set('class','')
+	$$('.form-item-normal')[0].getElements('a').inject(items,'after').getParent().addClass('form-act-link')
+	
+}
+
+})
+
+
+})
+}else if($$('.sign-title h2')[0].get('html')=='用户注册'){
+
+   $$("input[type=checkbox]")[0].set("checked",true);
+
+$$('.form-sub-label')[0].set('html','我已阅读并同意遵守<a href="./passport-license.html">服务条款</a>');
+$$('.sign-title h2')[0].set('html','注册会员');
+$('page_signup').getElements('.form-item').each(function(item,i){
+	item.addClass('item'+(i+1))
+if (item.getElement('label').get('html')=='<em class="warn">*</em>登录帐号：')
+{item.getElement('label').set('html','账号：')
+};
+if (item.getElements('a').get('html')=='看不清楚?换一个')
+{item.getElements('a').set('html','看不清?<br><em>换一张</em>');
+$$('.signup-aside')[0].getElement('a').inject(item.getElement('a'),'after').set('html','已是会员<br><em>立即登录</em>')
+}; 
+
+item.getElements('.form-sub-label').each(function(items){
+if (items.get('for')=='for_auto_signin'){
+	items.hide();
+	
+	$$('.need-signup')[0].getElements('a').inject(items,'after').set('html','立即注册').set('class','')
+	$$('.form-item-normal')[0].getElements('a').inject(items,'after').getParent().addClass('form-act-link')
+	
+}
+
+})
+
+
+})
+
+}else{$$('.maxAllwrap').setStyle('background','none')}
+} catch (e) {}
+
+$$('.maxAllwrap')[0].setStyle('min-height',$$('body')[0].getSize().y-201+'px')
+</script>
+
+      <{require file="block/login-foot.html" }>

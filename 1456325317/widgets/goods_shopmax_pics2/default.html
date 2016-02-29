@@ -1,0 +1,128 @@
+<{assign var=titleHeight value=$setting.titleHeight|default:'5'}>
+ <style type="text/css">
+
+#goods_shopmax_pics_<{$widgets_id}> .maxTitle{border-bottom:2px solid <{$setting.bcover_div_color}>;}
+#goods_shopmax_multiple_<{$widgets_id}> dt li.active{color:<{$setting.bhover_div_color}>;}
+#goods_shopmax_multiple_<{$widgets_id}> .item .p img{
+		max-width:100px;
+		max-height:100px;
+		_width:100px;
+		_height:100px;
+	}
+#goods_shopmax_multiple_<{$widgets_id}> .goods-shopmax-multiple-body{width:<{$setting.panel_width}>px;margin:0 auto;}
+#goods_shopmax_multiple_<{$widgets_id}>  .item{ float:left;}
+<{if $setting.item_pic_maxheight}>
+#goods_shopmax_multiple_<{$widgets_id}> .p{ height:<{$setting.item_pic_maxheight}>px;margin: 0 auto;width: <{$setting.item_pic_maxheight}>px; overflow:hidden;text-align:center;vertical-align:middle;}
+#goods_shopmax_multiple_<{$widgets_id}> .p a{height:<{$setting.item_pic_maxheight}>px;width: <{$setting.item_pic_maxheight}>px;line-height:<{$setting.item_pic_maxheight}>px;display:table-cell;vertical-align:middle;}
+#goods_shopmax_multiple_<{$widgets_id}> .i{padding:5px 10px 0 10px;line-height:16px;line-height:18px\9;line-height:15px\0;}
+
+#goods_shopmax_multiple_<{$widgets_id}> .p img{
+
+		max-width: <{$setting.item_pic_maxheight}>px;
+		max-height: <{$setting.item_pic_maxheight}>px;
+		_width: <{$setting.item_pic_maxheight}>px;
+		_height: <{$setting.item_pic_maxheight}>px;
+		line-height:<{$setting.item_pic_maxheight}>px;vertical-align:middle;
+}
+<{/if}>
+#goods_shopmax_multiple_<{$widgets_id}> .price-box li{display:inline;}
+#goods_shopmax_multiple_<{$widgets_id}> .gel-mprice{padding-left:5px;}
+
+ <{if $setting.item_title_lines}>
+#goods_shopmax_multiple_<{$widgets_id}> h6{ display:block;  white-space:normal;line-height:16px; overflow:hidden; height:<{$setting.item_title_lines*16}>px;}
+	 <{/if}>
+</style>
+<div class="maxProw-index clearfix <{$setting.block_class}>" id="goods_shopmax_pics_<{$widgets_id}>"> <{if $setting.block_name || $setting.keys}>
+  <div class="maxTitle">
+    <h3>
+<{if $setting.title_url}><a href="<{$setting.title_url}>" title="查看更多<{$setting.block_name}>"><{$setting.block_name}></a><{else}>
+	<{$setting.block_name}><{/if}></h3>
+   </div>
+  <{/if}>
+  <div class="maxContent clearfix">
+    <div class="maxpAD">
+	 <{if $setting.keys}>
+    <div class="maxTKey"><{foreach from=$setting.keys item=itemkey key=key}><a href="<{$itemkey.url}>" <{if $itemkey.mcname}>class="<{$itemkey.mcname}>"<{/if}> <{if $itemkey.target=='_blank'}>target="_blank"<{/if}>><{$itemkey.text}></a><{/foreach}></div>
+    <{/if}>
+        <{foreach from=$setting.ad item=ad name=adgroup}><a  href="<{$ad.target_url}>" class="item<{if $env.foreach.adgroup.first}> first<{/if}><{if $env.foreach.adgroup.last}> last<{/if}> item-<{$env.foreach.adgroup.iteration}>"
+            data-adid="<{$ad.id}>"><textarea class="textarea-lazyload-block"><img src="<{$ad.pic}>" alt="<{$ad.note}>" <{if $ad.width}> width="<{$ad.width}>"<{/if}> <{if $ad.height}>  height="<{$ad.height}>"<{/if}>/></textarea></a><{/foreach}>
+    </div>
+
+<dl id="goods_shopmax_multiple_<{$widgets_id}>" class="goods-shopmax-multiple maxpList <{$setting.boxclass}>">
+  <dt>
+    <ul>
+      <{foreach from=$data.plist item=glist}>
+      <li> <span><{$glist.title}></span> </li>
+      <{/foreach}>
+    </ul>
+  </dt>
+  <{foreach from=$data.plist item=dataItem key=glistKey name=glisteach}> <dd id="maxContent_<{$glistKey}>" class="goods-shopmax-multiple-body <{if $env.foreach.glisteach.first}>ddfist<{/if}> clearfix" limit="<{$dataItem.limit_m}>"  data-id="<{$glistKey}>" <{if !$env.foreach.glisteach.first}>style="display:none;"<{/if}>>
+  <{if $env.get.ctl == "admin_theme_widget"}><{*可视化编辑模式*}>
+  <div style="line-height:200px;height:200px;text-align:center;font-size:14px;background:#f9f9f9;color:#333;"> ［GOODS MULTIPLE］ </div>
+  <{continue}>
+  <{/if}>
+<{if !$env.foreach.glisteach.first}>
+				<textarea class="textarea-lazyload">
+			<{/if}>
+        <{foreach from=$dataItem.goodsRows item=row key=gid name=goodsmuti}>
+         <{assign var=iw value=$setting.panel_width/$dataItem.line_limit_m-1}>
+        <style>
+		#goods_shopmax_multiple_<{$widgets_id}> #maxContent_<{$glistKey}> .item{width:<{$iw}>px}
+        </style>
+        <div class="item<{if $env.foreach.goodsmuti.first}> first<{/if}><{if $env.foreach.goodsmuti.last}> last<{/if}><{if $env.foreach.goodsmuti.iteration%$dataItem.line_limit_m == 1}> line-first<{/if}><{if $env.foreach.goodsmuti.iteration%$dataItem.line_limit_m == 0}> line-last<{/if}>"  >
+<div class="p" align="center"> <{assign var=pickey  value=$dataItem.gpic_size|default:'goodsPicS' }> <a href="<{$row.goodsLink}>" target="_blank"><img src="<{$row[$pickey]}>" alt="<{$row.goodsName}>"/></a> </div>
+          <div class="i">
+
+            <h6>
+              <a href="<{$row.goodsLink}>" target="_blank"><{$row.goodsName}></a>
+              </h6><{if $row.tags}>
+ <{foreach from=$row.tags item=gtag}>
+      <{assign var="tagImage" value=$gtag.params.tag_image}>
+      <{if $tagImage}>
+        <div class="maxgoods-tip">
+          <img src="<{$tagImage|storager}>" style="opacity:<{$gtag.params.tag_opacity/100}>;" pos="<{$gtag.params.pic_loc}>" />
+        </div>
+      <{/if}>
+      <{/foreach}> <{/if}>
+            <ul>
+              <li class="gel-price"><{if $setting.pricetitle}>
+                <label><{$setting.pricetitle}></label><{/if}>
+                <em><{$row.goodsSalePrice|cur}></em></li>
+            </ul>
+             <{if $setting.show_buybutton}>
+
+        <a  href="<{link app=b2c ctl=site_cart act=add arg0=goods arg1=$row.goodsId arg2=$item.product_id arg3='1' }>" type="g" buy="<{$row.goodsId}>" class="addcart-btn"   rel="nofollow" ><span>加入购物车</span></a>
+        <{/if}>
+          </div>
+
+        </div>
+		<{if $env.foreach.goodsmuti.iteration == 1 && $env.foreach.glisteach.first && $dataItem.img}>
+		<div class="item itemimg"  style="width:<{$dataItem.imgwidth}>px"><a  href="<{$dataItem.imgurl}>"><img src="<{$dataItem.img}>" <{if $dataItem.imgwidth}> width="<{$dataItem.imgwidth}>"<{/if}> <{if $dataItem.imgheight}>  height="<{$dataItem.imgheight}>"<{/if}>/></a></div><{/if}>
+        <{/foreach}>
+<{if !$env.foreach.glisteach.first}>
+				</textarea>
+			<{/if}>
+  </dd>
+  <{/foreach}>
+</dl>
+	<div class="maxpR">
+	 <{if $setting.bad}>
+	  <div class="maxpBrand">
+		    <{foreach from=$setting.bad item=bad name=badgroup}>
+		   <a href="<{$bad.target_url}>" class="item-<{$env.foreach.badgroup.iteration}><{if $env.foreach.badgroup.first}> first<{/if}><{if $env.foreach.badgroup.last}> last<{/if}>" data-adid = "<{$bad.id}>" title="<{$bad.note}>"><textarea class="textarea-lazyload-block"><img src="<{$bad.pic}>" alt="<{$bad.note}>" width="98" height="35"/></textarea></a>
+		   <{/foreach}>
+	 </div>
+       <{/if}>
+	 <{if $setting.limit>0}>
+	 <div class="maxpRank">
+      <{foreach from=$data.prank.goodsRows item=row key=gid name=goodsrow}><{assign var=pickey  value=$setting.gpic_size|default:'goodsPicS' }>
+      <div class="item item<{$env.foreach.goodsrow.iteration}><{if $env.foreach.goodsrow.first}> first<{/if}><{if $env.foreach.goodsrow.last}> last<{/if}>">
+        <div class="p"><a href="<{$row.goodsLink}>" ><img src="<{$row[$pickey]}>" alt="<{$row.goodsName}>" width="70" height="70"/></a> </div>
+		 <div class="i"><a href="<{$row.goodsLink}>"  title="<{$row.goodsName}>"><{$row.goodsName}></a><span class="gel-price"><em><{$row.goodsSalePrice|cur}></em></span><{if !$setting.show_mktprice}>/<span class="gel-mktprice"><del><{$row.goodsMarketPrice|cur}></del></span><{/if}></div>
+		 <span class="num"><{$env.foreach.goodsrow.iteration}></span>
+      </div>
+      <{/foreach}>
+    </div><{/if}>
+   </div>
+  </div>
+</div>

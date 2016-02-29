@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <meta http-equiv="x-ua-compatible" content="ie=7" />
+
+    <head>
+        <meta charset="UTF-8">
+        <{header}>
+            <link href="images/max.css" rel="stylesheet" type="text/css" />
+            <link href="images/product.css" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body class="max-product-page">
+        <{require file="block/header_single.html" }>
+		 <{require file="block/menu.html" }>
+			<div class="max-item-bg">
+			         <{require file="block/maxpath.html" }>
+                <div class="maxwIn">
+
+                        <{main}>
+
+                   <div class="maxwLeft" style="padding-top:23px">
+                         <{widgets id="left_main1" }>
+                            <{widgets id="left_main" }>
+                    </div>
+					
+                </div>
+					
+				</div>
+
+
+
+<script>
+container.addEvents({
+    'click:relay(.spec-attr)': function(e){
+        if(this.hasClass('selected')) return;
+        var a = this.getElement('a');
+        var url = a.href;
+        var id = a.rel;
+        if(!id) return;
+        if (window.history && history.pushState) {
+            e.stop();
+            /*html5 history manage*/
+            if(ajax){
+                ajax.cancel();
+				
+				
+            }
+            else {
+			
+                state = {title: document.title, html: container.innerHTML, url: location.href, id: id};
+            }
+            ajax = Query.send(Router.basic(id), {
+                method: 'post',
+                onSuccess: function(rs) {
+                    try{
+                        rs = JSON.decode(rs);
+                        if(rs.error) {
+                            return Message.error(rs.error);
+                        }
+                    }catch(e) {
+                        updateBasic(rs, id, url);
+                    };
+					setTimeout(function(){	$$('.product-titles')[0].inject($$('.product-main')[0],'top')},0)
+                }
+            });		
+        }
+		
+    }
+});
+
+
+	$$('.product-titles')[0].inject($$('.product-main')[0],'top')
+	$$('.maxwLeft')[0].inject($$('.product-tags')[0],'before');
+		
+		</script>
+                <{require file="block/footer.html" }>

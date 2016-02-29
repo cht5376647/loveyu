@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <meta http-equiv="x-ua-compatible" content="ie=7" />
+
+    <head>
+        <meta charset="UTF-8">
+        <{header}>
+            <link id="maxCss" href="images/max.css" rel="stylesheet" type="text/css">
+            <link href="images/index.css" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body class="max-index-page">
+        <{require file="block/header_single.html" }>
+
+            <div class="maxCutContent">
+                <div class="maxAllwrap clearfix">
+                   <div class="maxwC-index clearfix">
+                        <div class="maxFlash">
+                            <{widgets id="maxFlash" }>
+                        </div>
+                        <div class="maxFlash-little">
+                            <{widgets id="maxFlash_little" }>
+                        </div>
+					</div>
+					<div class="maxLowprices">
+							<{widgets id="maxLowprices" }>
+					</div>
+
+                </div>
+            </div>
+          
+        
+        <div class="maxAllwrap clearfix">
+                <div class="maxTabGoods">
+                    <{widgets id="maxbanner_tab_01" }>
+                </div>
+
+                <div id="maxScrollAd">
+					<{widgets id="maxScrollAd" }>
+                </div>
+            </div>
+            <div class="maxAllwrap maxConmment">
+               <{widgets id="maxprow-top" }>
+            </div>
+			
+        
+        
+
+            <{require file="block/footer.html" }>

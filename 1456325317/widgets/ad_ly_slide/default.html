@@ -1,0 +1,61 @@
+<style>
+	#ex_slide_<{$widgets_id}> .ex-slide1-box{ width:1920px; margin-left:-<{$range}>px}
+    #ex_slide_<{$widgets_id}> ol li{float:left;list-style:none;display:block;overflow:hidden;border:0;margin:0;}
+	#ex_slide_<{$widgets_id}> .slide-trigger li{margin-right: 3px;cursor: pointer;display: inline;padding: 0 5px;}
+	#ex_slide_<{$widgets_id}> .switchable-triggerBoxw ul{margin: 0px 0 0 0px;text-align:center;}
+	#ex_slide_<{$widgets_id}> .switchable-triggerBoxw{z-index:999;width: 1000px;margin: 10px auto 0;height: 5px;text-align: center;}
+</style>
+<div id="ex_slide_<{$widgets_id}>" class="ex-slide1" style="width:<{$setting.width}>px;position:relative;">
+	<div id="ex_slide_<{$widgets_id}>-prev"  class="s-thumb-prev prev"></div>
+	<div id="ex_slide_<{$widgets_id}>-next"  class="s-thumb-next next"></div>
+    <ol class="switchable-content clearfix" style="width:<{$setting.width}>px;height:<{$setting.height}>px;position:relative;overflow:hidden;">
+		  <{foreach from=$data.pic item=parent key=parentId name=datu}>
+			<li class="switchable-panel" style="width:<{$setting.width}>px;height:<{$setting.height}>px;position:relative;overflow:hidden;">
+				<a href="<{$parent.linktarget}>" <{if $setting.blank=='true'}>target="_blank" <{/if}> >
+					<img style="height:<{$parent.height}>px;width:<{$parent.width}>px;" src="<{$parent.link}>"/>
+				</a>
+			</li>
+		  <{/foreach}>
+    </ol>
+	<div id="switchable-triggerBox_<{$widgets_id}>" class="switchable-triggerBox">
+		<{foreach from=$data.pic item=parent key=parentId name=datu}>
+			<span class="<{if $env.foreach.datu.iteration=='1'}>selected<{/if}> item<{$env.foreach.datu.iteration}> ">●</span>
+		<{/foreach}>
+	</div>
+</div>
+<script>
+jQuery('#switchable-triggerBox_<{$widgets_id}> span').each(function(i) {
+
+    jQuery(this).click(function() {
+        jQuery('#ex_slide_<{$widgets_id}> ol').trigger('slideTo', [i, 0, true]);
+        return false;
+    });
+});
+jQuery('#ex_slide_<{$widgets_id}> ol').carouFredSel({
+    prev: '#ex_slide_<{$widgets_id}>-prev',
+    next: '#ex_slide_<{$widgets_id}>-next',
+    mousewheel: true,
+    auto: {
+        play: <{$setting.autoplay}> ,//自动播放
+        pauseDuration: <{$setting.interval|default:'5000'}>
+
+    },
+    scroll: {
+        items: 1,
+        event: 'click',
+        easing: '<{$setting.xiaoguo|default:'swing'}>',
+        duration: <{$setting.sudu|default:'300'}> ,
+        pauseOnHover: true,//鼠标悬浮false,true
+        fx: '<{$setting.switcheffect|default:'scroll'}>',
+        onBefore: function() {
+            var pos = jQuery(this).triggerHandler('currentPosition');
+            jQuery('#switchable-triggerBox_<{$widgets_id}> span').removeClass('selected');
+            jQuery('#switchable-triggerBox_<{$widgets_id}> span.item' + (pos + 1)).addClass('selected');
+
+        }
+
+    }
+
+});
+
+</script>

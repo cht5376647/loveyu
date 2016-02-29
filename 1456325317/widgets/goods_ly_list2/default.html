@@ -1,0 +1,207 @@
+
+
+
+<dl class="goods-ly-list" id="goodslist_<{$widgets_id}>">
+	<{if $setting.title||$setting.text}>
+	<dt class="ly-title">
+		<{if $setting.title}><h3><{$setting.title}></h3><{/if}>
+		<!-- morelink -->
+		<{if $setting.text}>
+		<ul class="clearfix">
+			<{foreach from=$setting.text item=parent key=parentId name=morelink}>
+			<li class="item-<{$env.foreach.morelink.iteration}>"><a 	<{if $parent.tg}>target="_blank"<{/if}> href="<{$parent.linktarget}>">
+					<{$parent.linkinfo}>
+				</a>
+			</li>
+			<{/foreach}>
+		</ul>
+		<{/if}>
+		<!-- morelinkEND -->
+	</dt>
+	<{/if}>
+	<!-- tupian -->
+	<{if $setting.pic}>
+	<dd class="item-pic">
+		<ul class="clearfix">
+		    <{foreach from=$setting.pic item=parent key=parentId name=morepic}>
+	
+			<li class="item-<{$env.foreach.morepic.iteration}>">
+				 <{foreach from=$parent.goodsRows item=row key=gid name=goodsrow}>
+			 11111111111111
+			 <{/foreach}>
+			<a <{if $parent.tg}>target="_blank"<{/if}> href="<{$parent.linktarget}>">
+					<img src="<{$parent.link}>" width="<{$parent.width}>" height="<{$parent.height}>" title="<{$parent.linkinfo}>"/>
+					<{if $setting.show_market}><span><{$parent.linkinfo}></span><{/if}>
+				</a>
+			</li>
+			<{/foreach}>
+		</ul>
+	</dd>
+	<{/if}>
+	<!-- tupianend -->
+	<!-- goods -->
+	<{if $setting.limit>0&&$setting.moshi=="1"||$setting.moshi=="2"}>
+	<dd class="<{if $setting.moshi=="1"}>normal-goods<{else if $setting.moshi=="2"}>left-goods<{/if}>" >
+		<ul class="goods-list clearfix">
+		  <{foreach from=$data.goodsRows item=row key=gid name=goodsrow}>
+		  <li class="goods-item class="goods-item item<{$env.foreach.goodsrow.iteration}>  clearfix   <{if $env.foreach.goodsrow.first}>first<{/if}>  <{if $env.foreach.goodsrow.last}>last<{/if}>">
+			 <{if $setting.shizhi}><div class="nub"><{$env.foreach.goodsrow.iteration}></div><{/if}>
+			<div class="item">
+				<{assign var=pickey value=$setting.gpic_size|default:'goodsPicS'}>
+				<div class="goods-pic" style="<{if $setting.moshi=="2"}>float:left;<{/if}><{if $setting.width}>width:<{$setting.width}>px;<{/if}><{if $setting.height}>height:<{$setting.height}>px;line-height:<{$setting.height-2}>px;*font-size:<{$setting.height * 0.9}>px;<{/if}>">
+				  <a target="_blank" href="<{$row.goodsLink}>"><img data-src="<{$row[$pickey]}>" alt="<{$row.goodsName}>"　data-img-zoom="true" style="<{if $setting.width}>max-width:<{$setting.width}>px;<{/if}><{if $setting.height}>max-height:<{$setting.height}>px;<{/if}>vertical-align: middle;" /></a>
+				</div>
+				<div class="goods-info" style="<{if $setting.moshi=="2"}>margin-left:<{$setting.width+10}>px;<{/if}>">
+					<h6 class="goods-name">
+					  <a href="<{$row.goodsLink}>" target="_blank" title="<{$row.goodsName}>"><{$row.goodsName}></a>
+					</h6>
+					<{if $setting.show_price||$setting.show_market||$setting.discount}>
+					<ul class="clearfix">
+						<{if $setting.show_price}>
+						 <li class="price">
+							<{if $setting.texttag}> <span class="t"> <{$setting.texttag}></span><{/if}>
+							<i><{$row.goodsSalePrice|cur}></i>
+						 </li>
+						  <{/if}>
+						 <{if $setting.show_market}>
+						 <li class="mk-price">
+							<{if $setting.stexttag}> <span class="t"> <{$setting.stexttag}></span><{/if}>
+							<i><{$row.goodsMarketPrice|cur}></i>
+						 </li>
+						 <{/if}>
+						 <{if $setting.discount}>
+						 <li class="discount">
+							<{assign var="aCount" value=$row.goodsSalePrice/$row.goodsMarketPrice*10}>
+							<i><{$aCount|number_format:"1"}></i>
+						 </li>
+						 <{/if}>
+
+
+						 
+					</ul>
+					<{/if}>
+					 <{if $setting.jianjie || $row.goodsIntro}>
+					<div class="brief"><{$row.goodsIntro}></div>
+					<{/if}>
+				</div>
+				
+			</div>
+		  </li>
+		  <{/foreach}>
+		</ul>
+	</dd>
+	<{else if $setting.moshi=="3"}>
+	<dd class="<{if $setting.moshi=="3"}>slide-goods<{/if}>">
+	<div class="w"  style="position: relative;overflow: hidden;margin:0 auto;<{if $setting.lbheight}>height:<{$setting.lbheight}>px<{/if}>;<{if $setting.lbheight}>width:<{$setting.lbwidth}>px<{/if}>">
+		<ul class="goods-list clearfix">
+		  <{foreach from=$data.goodsRows item=row key=gid name=goodsrow}>
+		  <li class="goods-item item<{$env.foreach.goodsrow.iteration}>  clearfix   <{if $env.foreach.goodsrow.first}>first<{/if}>  <{if $env.foreach.goodsrow.last}>last<{/if}>" style="float:left; width:<{$setting.lbwidth/$setting.limitc}>px">
+			 <{if $setting.shizhi}><div class="nub"><{$env.foreach.goodsrow.iteration}></div><{/if}>
+			<div class="item">
+				<{assign var=pickey value=$setting.gpic_size|default:'goodsPicS'}>
+				<div class="goods-pic" style="<{if $setting.moshi=="2"}>float:left;<{/if}><{if $setting.width}>width:<{$setting.width}>px;<{/if}><{if $setting.height}>height:<{$setting.height}>px;line-height:<{$setting.height-2}>px;*font-size:<{$setting.height * 0.9}>px;<{/if}>">
+				  <a target="_blank" href="<{$row.goodsLink}>"><img data-src="<{$row[$pickey]}>" alt="<{$row.goodsName}>"　data-img-zoom="true" style="<{if $setting.width}>max-width:<{$setting.width}>px;<{/if}><{if $setting.height}>max-height:<{$setting.height}>px;<{/if}>vertical-align: middle;" /></a>
+				</div>
+				<div class="goods-info">
+					<div class="n" style="<{if $setting.width}>max-width:<{$setting.width}>px;<{/if}><{if $setting.moshi=="2"}>margin-left:<{$setting.width+10}>px;<{/if}>">
+						<h6 class="goods-name">
+						  <a target="_blank" href="<{$row.goodsLink}>" title="<{$row.goodsName}>"><{$row.goodsName}></a>
+						</h6>
+						<{if $setting.show_price||$setting.show_market||$setting.discount}>
+						<ul class="clearfix">
+							<{if $setting.show_price}>
+							 <li class="price">
+								<{if $setting.texttag}> <span class="t"> <{$setting.texttag}></span><{/if}>
+								<i><{$row.goodsSalePrice|cur}></i>
+							 </li>
+							  <{/if}>
+							 <{if $setting.show_market}>
+							 <li class="mk-price">
+								<{if $setting.stexttag}> <span class="t"> <{$setting.stexttag}></span><{/if}>
+								<i><{$row.goodsMarketPrice|cur}></i>
+							 </li>
+							 <{/if}>
+							 <{if $setting.discount}>
+							 <li class="discount">
+								<{assign var="aCount" value=$row.goodsSalePrice/$row.goodsMarketPrice*10}>
+								<i><{$aCount|number_format:"1"}></i>
+							 </li>
+							 <{/if}>
+
+
+							 
+						</ul>
+						<{/if}>
+						 <{if $setting.jianjie || $row.goodsIntro}>
+						<div class="brief"><{$row.goodsIntro}></div>
+						<{/if}>
+					</div>
+				</div>
+				
+			</div>
+		  </li>
+		  <{/foreach}>
+		</ul>
+		</div>
+		<a class="slider-btn prev "href="javascript:void(0)" title=""></a>
+		<a class="slider-btn next "href="javascript:void(0)" title=""></a>
+	</dd>
+	<{/if}>
+	<!-- doodsEND -->
+</dl>
+
+
+
+<script type="text/javascript">
+		jQuery('#goodslist_<{$widgets_id}> .slide-goods .goods-list').carouFredSel({
+					prev: {
+			button: '#goodslist_<{$widgets_id}> .prev',
+			event:'click'
+		},
+		next: {
+			button: '#goodslist_<{$widgets_id}> .next',
+			event:'click'
+		},
+		width:<{$setting.lbwidth}>,
+		<{if $setting.xx=='false'}>
+		circular:false ,
+		infinite:false,
+		<{/if}>
+
+					
+					mousewheel: true,
+					//pagination: "#switchable-triggerBox_<{$widgets_id}>",
+					auto:{
+					play: <{$setting.autoplay}> ,//自动播放
+					pauseDuration:<{$setting.interval|default:'5000'}>
+
+					},
+					 scroll : {
+								items: <{$setting.limitc}>,
+								event:'mouseover',
+								easing:'<{$setting.xiaoguo|default:'swing'}>',
+								duration: <{$setting.sudu|default:'300'}>,
+								pauseOnHover: true,//鼠标悬浮false,true
+								fx:'<{$setting.switcheffect|default:'scroll'}>'
+					
+							
+					},
+				
+					swipe: {
+						onMouse: true,
+						onTouch: true
+					}
+					
+				});
+</script>
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,54 @@
+<div class="maxProw-index clearfix <{$setting.block_class}>" id="goods_shopmax_pics2_<{$widgets_id}>"> <{if $setting.block_name || $setting.keys}>
+  <div class="maxTitle">
+    <h3>
+<{if $setting.title_url}><a href="<{$setting.title_url}>" title="查看更多<{$setting.block_name}>"><{$setting.block_name}></a><{else}>
+	<{$setting.block_name}><{/if}></h3>
+	<{if $setting.keys}>
+    <div class="maxTKey"><{foreach from=$setting.keys item=itemkey key=key}><a href="<{$itemkey.url}>" <{if $itemkey.mcname}>class="<{$itemkey.mcname}>"<{/if}> <{if $itemkey.target=='_blank'}>target="_blank"<{/if}>><{$itemkey.text}></a><{/foreach}></div>
+    <{/if}>
+	<ul>
+		  <{foreach from=$data.plist.goodsRows item=row key=gid name=goodsrow}>
+				<{if $env.foreach.goodsrow.iteration <= $setting.limit/4}>
+				<li>&#8226;</li>
+				<{/if}>
+		  <{/foreach}>
+		</ul>
+   </div>
+  <{/if}>
+  <div class="maxContent clearfix">
+		<div class="maxpAD">
+			<{foreach from=$setting.ad item=ad name=adgroup}><a  href="<{$ad.target_url}>" class="item<{if $env.foreach.adgroup.first}> first<{/if}><{if $env.foreach.adgroup.last}> last<{/if}> item-<{$env.foreach.adgroup.iteration}>"
+				data-adid="<{$ad.id}>"><img src="<{$ad.pic}>" alt="<{$ad.note}>" <{if $ad.width}> width="<{$ad.width}>"<{/if}> <{if $ad.height}>  height="<{$ad.height}>"<{/if}>/></a><{/foreach}>
+		</div>
+		 <{if $setting.limit>0}>
+		<div class="maxpList">
+			<a href="javascript:void(null)" class="prev"></a>
+			<a href="javascript:void(null)" class="next"></a>
+		<div class="">
+		  <{foreach from=$data.plist.goodsRows item=row key=gid name=goodsrow}><{assign var=pickey_r  value=$setting.gpic_size_r|default:'goodsPicS' }>
+		  <{if $env.foreach.goodsrow.iteration%4==1 }>
+				<div class="itemWrap">
+		  <{/if}>
+		  <div class="item item<{$env.foreach.goodsrow.iteration}><{if $env.foreach.goodsrow.first}> first<{/if}><{if $env.foreach.goodsrow.last}> last<{/if}>">
+			<div class="p"><a href="<{$row.goodsLink}>" ><img src="<{$row[$pickey_r]}>" alt="<{$row.goodsName}>" /></a> </div>
+			 <div class="i"><a href="<{$row.goodsLink}>"  title="<{$row.goodsName}>"><{$row.goodsName}></a><span class="gel-price"><em><{$row.goodsSalePrice|cur}></em></span><{if !$setting.show_mktprice}><span class="gel-mktprice">/<del><{$row.goodsMarketPrice|cur}></del></span><{/if}></div>
+		  </div>
+		   <{if $env.foreach.goodsrow.iteration%4==0 }></div>
+        <{/if}>
+		  <{/foreach}>
+		  <{if count($data.plist.goodsRows)%4!=0}></div>
+        <{/if}>
+		</div></div><{/if}>
+	</div>
+</div>
+<script>
+    new Switchable('goods_shopmax_pics2_<{$widgets_id}>',{
+        effect:'scrollx',
+        autoplay:true,
+		haslrbtn:true,
+		hasTriggers:true,
+		panels:'.maxpList .itemWrap',
+		triggers:'.maxTitle li'
+
+    });
+</script>

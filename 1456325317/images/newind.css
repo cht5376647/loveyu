@@ -1,0 +1,105 @@
+body{background-color: #f2f2f2;}
+.t{font-size: 2em;height: 70px;line-height: 70px;font-weight: normal;}
+.max-index-ad{margin-bottom:20px;}
+.maxAllwrap {margin-bottom:0px;}
+.maxAllwrap .ex-slide1{width:1920px;left:50%;margin-left:-960px !important;}
+.maxAllwrap .more-pic{display:block;}
+.switchable-triggerBox {width: 100%;margin: 10px auto 0; text-align: center;position: absolute;bottom: 0;font-size: 30px;}
+.maxAllwrap .switchable-triggerBox span{display: -moz-inline-stack;display: inline-block;overflow: hidden;cursor: pointer;color: #999;}
+.maxAllwrap b{font-weight: normal;margin: 0 auto;display: block;}
+.maxAllwrap .switchable-triggerBox .selected{color: #33beff;}
+.max-content {
+    width: 100%;
+    height: auto;
+    background: #0456ad url(find-topbg.jpg) no-repeat scroll center top;
+    padding-bottom: 100px;
+    position: relative;
+}
+.max-find-nr {
+    width: 1200px;
+    height: auto;
+    margin: 0 auto;
+    position: relative;
+    z-index: 10;
+}
+.max-find-title{
+    padding: 74px 0 20px 20px;
+    height: auto;
+    font-size: 26px;
+    color: #fff;
+    height: 32px;
+}
+.max-find-left {
+    float: left;
+    width: 837px;
+    height: auto;
+}
+.max-find-nav {
+    width: 837px;
+    height: auto;
+    background-color: #fff;
+    padding: 10px 0;
+    font-size: 14px;
+}
+.max-find-title span {
+    font-size: 14px;
+    color: #fea700;
+    margin-left: 10px;
+}
+.max-find-right {
+    float: right;
+    width: 335px;
+    height: auto;
+}
+.max-find-main li{
+    width: 817px;
+    height: auto;
+    background-color: #fff;
+    padding: 10px;
+    margin-top: 30px;
+    clear: both;
+    position: relative;
+}
+.max-find-nav dl {padding:10px 20px;height:16px;line-height:16px;color:#666;}
+.max-find-nav dt {float:left;}
+.max-find-nav dd {float:left;}
+.max-find-nav dd li{float:left;cursor:pointer;margin:0 15px; padding-bottom:2px;}
+.max-find-nav dd li.on {color:#1664b1;border-bottom:2px #1664b1 solid;}
+.max-find-nav li:hover {color:#1664b1;border-bottom:2px #1664b1 solid;}
+.max-find-js {
+    width: 757px;
+    height: auto;
+    padding: 18px 30px 18px;
+}
+.max-find-js h3 {
+    font-size: 24px;
+    color: #333;
+    line-height: 68px;
+}
+.max-find-js .jianjie{
+    color: #666;
+    font-size: 14px;
+    line-height: 26px;
+    height: 52px;
+    overflow: hidden;
+}
+.goods-shopmax-list {
+    width: 315px;
+    height: auto;
+    overflow: hidden;
+    padding: 0 10px 10px;
+    background-color: #fff;
+}
+.goods-shopmax-list .maxTitle  h3 {
+    font-size: 18px;
+    color: #111;
+    height: 58px;
+    line-height: 58px;
+    border-bottom: 3px #1664b1 solid;
+    font-weight: normal;
+    padding: 0 10px;
+}
+.goods-shopmax-list .item {border-bottom: 1px #eee solid;}
+.goods-shopmax-list .item h6{padding-bottom:10px;}
+.goods-shopmax-list .item h6 a{font-weight:normal;}
+.goods-shopmax-list .p{border:1px solid #eee;}

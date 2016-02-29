@@ -1,0 +1,19 @@
+ <style type="text/css">
+    #ad_shopmax_group_<{$widgets_id}> li a{background:<{$setting.cover_div_color}>;}
+	<{if $setting.open_cover_div ==1}>
+	#ad_shopmax_group_<{$widgets_id}> li a:hover span{ visibility: visible;}
+	#ad_shopmax_group_<{$widgets_id}> li a:hover img{filter:alpha(opacity=<{$setting.cover_div_opacity*100}>);-moz-opacity:<{$setting.cover_div_opacity}>; opacity: <{$setting.cover_div_opacity}>;}
+	<{/if}>
+</style>
+<div class="ad-shopmax-group clearfix <{$setting.boxclass}>" id="ad_shopmax_group_<{$widgets_id}>">
+ <{if $setting.fronttips || $setting.keys}> <div class="maxTitle"><{if $setting.fronttips}>
+    <h3><{$setting.fronttips}></h3>
+    <{/if}><{if $setting.keys}>
+    <div class="maxTKey"><{foreach from=$setting.keys item=itemkey}> <a href="<{$itemkey.url}>" <{if $itemkey.classname}>class="<{$itemkey.classname}>"<{/if}> <{if $itemkey.target=='_blank'}>target="_blank"<{/if}>><{$itemkey.text}></a> <{/foreach}></div>
+    <{/if}></div><{/if}>
+    <{if $setting.mainpic}>
+   <div class="maxMainPic">
+   <a href="<{$setting.mainpic_url}>"><img src="<{$setting.mainpic}>" alt="<{$setting.mainpic_node}>" <{if $setting.mainpic_width}> width="<{$setting.mainpic_width}>"<{/if}> <{if $setting.mainpic_height}>  height="<{$setting.mainpic_height}>"<{/if}>/></a>
+   </div><{/if}><ul class="clearfix"><{foreach from=$setting.ad item=ad name=adgroup}><li class="item-<{$env.foreach.adgroup.iteration}><{if $env.foreach.adgroup.first}> first<{/if}><{if $env.foreach.adgroup.last}> last<{/if}><{if $setting.line_limit&&$env.foreach.adgroup.iteration%$setting.line_limit ==1}> line-first<{/if}><{if $setting.line_limit&&$env.foreach.adgroup.iteration%$setting.line_limit ==0}> line-last<{/if}>" data-adid = "<{$ad.id}>"><{if $ad.target_url}><a href="<{$ad.target_url}>"><img src="<{$ad.pic}>" alt="<{$ad.note}>"<{if $ad.width}> width="<{$ad.width}>"<{/if}> <{if $ad.height}>  height="<{$ad.height}>"<{/if}>/><{if $ad.note}><span><{$ad.note}></span><{/if}></a><{else}><img src="<{$ad.pic}>" alt="<{$ad.note}>"<{if $ad.width}> width="<{$ad.width}>"<{/if}> <{if $ad.height}>  height="<{$ad.height}>"<{/if}>/><{/if}>
+   </li><{/foreach}></ul></div>
+

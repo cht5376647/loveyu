@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <meta http-equiv="x-ua-compatible" content="ie=7" />
+    
+    <head>
+        <meta charset="UTF-8">
+        <{header}>
+        <link href="images/max.css" rel="stylesheet" type="text/css" />
+		 <link href="images/newind.css" rel="stylesheet" type="text/css" />
+		
+    </head>
+    <body class="max-jph-page">
+        <{require file="block/header_single.html" }>
+		<{require file="block/menu.html" }>
+		<div class="maxAllwrap clearfix"><{widgets id="maxAllwrap"}></div>
+		<div class="max-content">
+			<div class="max-find-nr clearfix">
+				<div class="max-find-title"><{widgets id="title2"}></div>
+				<div class="max-find-left">
+					<div class="max-find-nav"><{widgets id="submenu"}></div>
+					<div class="max-find-mainw"><{widgets id="main"}></div>
+				</div>
+				<div class="max-find-right"><{widgets id="right"}></div>
+			</div>
+		</div>
+		
+
+<script type="text/javascript">
+$$('.max-find-nav li')[0].addClass('on')
+$$('.max-find-main')[0].show().getSiblings().hide()
+$$('.max-find-nav li').each(function(item,i){
+
+	item.addEvent('click',function(){
+		item.addClass('on').getSiblings().removeClass('on')
+		$$('.max-find-main')[i].show().getSiblings().hide()
+	})
+})
+</script>
+		<{require file="block/footer.html" }>

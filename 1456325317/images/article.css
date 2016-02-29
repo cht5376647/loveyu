@@ -1,0 +1,12 @@
+.maxwRight{float:left;}
+.maxwLeft{float:right;}
+.goods-shopmax-rank .item .i {}
+.goods-shopmax-rank .active .i {width:118px!important;}
+.goods-shopmax-rank .item.active {height:115px;}
+.maxwLeft .goods-shopmax-multiple-body  p{display:none;}
+.maxwLeft .goods-shopmax-multiple-body  .gel-price del {white-space:nowrap;display: none;}
+.maxwLeft .goods-shopmax-multiple-body  .prev{display:none;}
+.maxwLeft .goods-shopmax-multiple-body  .next{display:none;}
+.maxwLeft .goods-shopmax-multiple-body ul{
+    white-space: nowrap;
+}

@@ -1,0 +1,17 @@
+<dl class="ad-ly-multiple" id="multiple_<{$widgets_id}>">
+	<{if $setting.title}><dt class="ly-title"><{$setting.title}></dt><{/if}>
+	<dd>
+		<ul class="clearfix">
+		    <{foreach from=$data.pic item=parent key=parentId name=morepic}>
+			<li class="item-<{$env.foreach.morepic.iteration}>"><a <{if $parent.tg}>target="_blank"<{/if}> href="<{$parent.linktarget}>">
+					<img src="<{$parent.link}>" width="<{$parent.width}>" height="<{$parent.height}>" title="<{$parent.linkinfo}>"/>
+					<{if $setting.show_market}><span><{$parent.linkinfo}></span><{/if}>
+				</a>
+			</li>
+			   <{/foreach}>
+		</ul>
+	</dd>
+</dl>
+
+
+
