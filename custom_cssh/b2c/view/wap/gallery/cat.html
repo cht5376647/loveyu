@@ -1,0 +1,43 @@
+
+<div class="full-screen">
+
+    <div class="pt-category">
+        <div class="title">
+            <strong class="f-l"><{if $cur_cat}><{$cur_cat.cat_name}><{else}>全部分类<{/if}></strong>
+            <{if $cur_cat}>
+            <a href="<{link app=b2c ctl=wap_gallery act=index arg0=$cur_cat.cat_id}>" class="f-r">
+                查看全部商品
+                <i class="arr right"></i>
+            </a>
+            <{/if}>
+        </div>
+        <div class="content">
+            <em>分类下子分类</em>
+            <ul class="list c-fix">
+                <{foreach from=$catlist item=item key=key}>
+                <li class="item item-<{$item.parent_id}>">
+                    <{if $item.child_count > 0}>
+                    <a href="<{link app=b2c ctl=wap_gallery act=cat arg0=$item.cat_id}>">
+                        <span><{$item.cat_name}></span>  <i class="arr right"></i>
+                    </a>
+                    <{else}>
+                    <a href="<{link app=b2c ctl=wap_gallery act=index arg0=$item.cat_id}>">
+                        <span><{$item.cat_name}></span>
+                    </a>
+                    <{/if}>
+                </li>
+                <{/foreach}>
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+	$('.c-fix').find('.item').each(function(){
+		if ($(this).index()%2==0)
+		{	$(this).addClass('odd')
+		}
+
+	$(this).addClass('cat'+($(this).index()+1))
+	})
+
+</script>

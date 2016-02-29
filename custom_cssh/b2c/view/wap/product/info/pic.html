@@ -1,0 +1,22 @@
+
+
+<!-- 商品图片 -->
+<div class="slider" id="slider" style="visibility: visible;">
+    <ul class="slider-list" style="width: 1280px;">
+           <{if $page_product_basic.images}>
+        <{foreach from=$page_product_basic.images item=image}>
+        <li class="slider-item"><img src="<{$image.image_id|storager:'l'}>" alt="<{$page_product_basic.title}>"></li>
+        <{/foreach}>
+    <{else}>
+        <li class="slider-item"><img src="<{$setting.imageDefault.S.default_image|storager}>" alt="<{$page_product_basic.title}>"></li>
+    <{/if}>
+              </ul>
+    <div id="position">
+    <{if $page_product_basic.images}>
+        <{foreach from=$page_product_basic.images name=name item=image}>
+            <a class="<{if $smarty.foreach.name.iteration == 1}>on<{/if}>" href="#" class=" "></a>
+           
+			        <{/foreach}>
+    <{/if}>
+</div>
+</div>

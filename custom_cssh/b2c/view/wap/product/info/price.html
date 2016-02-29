@@ -1,0 +1,21 @@
+<!-- 商品价格 -->
+
+<div class="col price">
+    <b class="price1"><{$product_price.price|cur_odr}></b>
+	<s class="mktprice"><{$product_price.mktprice|cur_odr}></s>
+  <b class="zhe"><{($product_price.price/$product_price.mktprice)*10|number_format:"1"}>折</b>
+
+</div>
+<div class="col" id="J_all_price">
+    <{if $product_price.mlv_price && $setting.member_price == '1'}>
+    会员最低<b class="f-red"><{$product_price.minprice|cur_odr}></b>起
+      <div style="display:none;" class="all-price">
+        <ul>
+          <{foreach from=$product_price.mlv_price item=item}>
+          <li><{$item.name}>：<{$item.price|cur_odr}></li>
+          <{/foreach}>
+        </ul>
+      </div>
+    <{/if}>
+    <span class="arr right"></span>
+</div>
